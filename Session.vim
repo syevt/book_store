@@ -8,13 +8,20 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 .gitignore
+badd +22 .gitignore
+badd +49 config/database.yml
 argglobal
 silent! argdel *
-edit .gitignore
+edit config/database.yml
 set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
 wincmd t
 set winminheight=1 winheight=1 winminwidth=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 90 + 91) / 182)
+exe 'vert 2resize ' . ((&columns * 91 + 91) / 182)
 argglobal
 setlocal fdm=indent
 setlocal fde=0
@@ -30,6 +37,26 @@ exe s:l
 normal! zt
 1
 normal! 0
+wincmd w
+argglobal
+if bufexists('.gitignore') | buffer .gitignore | else | edit .gitignore | endif
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=1
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 22 - ((21 * winheight(0) + 27) / 54)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+22
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 90 + 91) / 182)
+exe 'vert 2resize ' . ((&columns * 91 + 91) / 182)
 tabnext 1
 if exists('s:wipebuf') && s:wipebuf != bufnr('%')
   silent exe 'bwipe ' . s:wipebuf
