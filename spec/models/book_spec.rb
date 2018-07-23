@@ -1,5 +1,6 @@
-require 'rails_helper'
-
-RSpec.describe Book, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Book do
+  context 'association' do
+    it { is_expected.to have_and_belong_to_many(:authors) }
+    it { is_expected.to have_and_belong_to_many(:materials) }
+  end
 end
