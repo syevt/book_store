@@ -4,6 +4,7 @@ SimpleCov.start
 require 'rails_helper'
 require 'capybara/rspec'
 require 'capybara/dsl'
+require 'carrierwave/test/matchers'
 
 %w(support helpers **/shared_examples).each do |folder|
   # Dir["#{File.dirname(__FILE__)}/../spec/#{folder}/**/*.rb"].each do |file|
@@ -22,4 +23,5 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+  config.include CarrierWave::Test::Matchers
 end
