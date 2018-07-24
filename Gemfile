@@ -19,9 +19,13 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'carrierwave', '~> 1.0'
+gem 'draper'
 gem 'faker'
 gem 'fog-aws'
+gem 'hamlit'
+gem 'hamlit-rails'
 gem 'mini_magick'
+gem 'rectify'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -41,6 +45,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'poltergeist'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
   gem 'wisper-rspec', require: false
