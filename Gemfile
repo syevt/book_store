@@ -19,12 +19,15 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'carrierwave', '~> 1.0'
+gem 'devise'
 gem 'draper'
 gem 'faker'
 gem 'fog-aws'
 gem 'hamlit'
 gem 'hamlit-rails'
 gem 'mini_magick'
+gem 'omniauth'
+gem 'omniauth-facebook'
 gem 'rectify'
 
 group :development, :test do
@@ -36,6 +39,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'letter_opener'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
