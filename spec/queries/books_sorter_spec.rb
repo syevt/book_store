@@ -1,3 +1,4 @@
+require 'ecomm/factories'
 describe BooksSorter do
   context '#query' do
     context 'newest first' do
@@ -15,8 +16,8 @@ describe BooksSorter do
         books = []
         4.times do |n|
           book = create(:book_with_authors_and_materials)
-          n != 3 ? book.order_items << create_list(:order_item, n + 1)
-                 : book.order_items << create(:order_item, quantity: 20)
+          n != 3 ? book.line_items << create_list(:line_item, n + 1)
+                 : book.line_items << create(:line_item, quantity: 20)
           books << book
         end
         returned_books = sorter.query.to_a.map(&:title)

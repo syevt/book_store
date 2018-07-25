@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180724104356) do
+ActiveRecord::Schema.define(version: 20180725150031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,66 @@ ActiveRecord::Schema.define(version: 20180724104356) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ecomm_addresses", force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "order_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "street_address"
+    t.string "city"
+    t.string "zip"
+    t.string "country"
+    t.string "phone"
+    t.string "address_type"
+    t.index ["customer_id"], name: "index_ecomm_addresses_on_customer_id"
+    t.index ["order_id"], name: "index_ecomm_addresses_on_order_id"
+  end
+
+  create_table "ecomm_coupons", force: :cascade do |t|
+    t.string "code"
+    t.datetime "expires"
+    t.integer "discount"
+  end
+
+  create_table "ecomm_credit_cards", force: :cascade do |t|
+    t.string "number"
+    t.string "cardholder"
+    t.string "month_year"
+    t.string "cvv"
+    t.integer "order_id"
+    t.index ["order_id"], name: "index_ecomm_credit_cards_on_order_id"
+  end
+
+  create_table "ecomm_line_items", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "order_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_ecomm_line_items_on_order_id"
+    t.index ["product_id"], name: "index_ecomm_line_items_on_product_id"
+  end
+
+  create_table "ecomm_orders", force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "shipment_id"
+    t.integer "coupon_id"
+    t.string "state"
+    t.decimal "subtotal", precision: 6, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coupon_id"], name: "index_ecomm_orders_on_coupon_id"
+    t.index ["customer_id"], name: "index_ecomm_orders_on_customer_id"
+    t.index ["shipment_id"], name: "index_ecomm_orders_on_shipment_id"
+  end
+
+  create_table "ecomm_shipments", force: :cascade do |t|
+    t.string "method"
+    t.integer "days_min"
+    t.integer "days_max"
+    t.decimal "price", precision: 5, scale: 2
+  end
+
   create_table "materials", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -76,4 +136,9 @@ ActiveRecord::Schema.define(version: 20180724104356) do
   end
 
   add_foreign_key "books", "categories"
+  add_foreign_key "ecomm_addresses", "ecomm_orders", column: "order_id"
+  add_foreign_key "ecomm_credit_cards", "ecomm_orders", column: "order_id"
+  add_foreign_key "ecomm_line_items", "ecomm_orders", column: "order_id"
+  add_foreign_key "ecomm_orders", "ecomm_coupons", column: "coupon_id"
+  add_foreign_key "ecomm_orders", "ecomm_shipments", column: "shipment_id"
 end
