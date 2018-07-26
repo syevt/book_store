@@ -22,6 +22,18 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  config.around :each, type: :feature do |example|
+    if example.metadata[:use_selenium]
+      saved_driver = Capybara.current_driver
+      Capybara.current_driver = :selenium
+    end
+
+    example.run
+
+    Capybara.current_driver = saved_driver if example.metadata[:use_selenium]
+  end
+
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.include CarrierWave::Test::Matchers
+  config.include Rails.application.routes.url_helpers
 end
