@@ -8,11 +8,11 @@ FactoryBot.define do
     width 6
     thickness 1
     price 1.0
-    main_image do
-      Rack::Test::UploadedFile.new(
-        File.join(Rails.root, 'spec', 'fixtures', '16.png'), 'image/png'
-      )
-    end
+    # main_image do
+      # Rack::Test::UploadedFile.new(
+        # File.join(Rails.root, 'spec', 'fixtures', '16.png'), 'image/png'
+      # )
+    # end
 
     factory :book_with_authors_and_materials do
       transient do
@@ -46,6 +46,10 @@ FactoryBot.define do
           book.reviews << build_list(:review, evaluator.reviews_count)
         end
       end
+    end
+
+    after :create do |b|
+      b.update_column(:main_image, "16.png")
     end
   end
 end
