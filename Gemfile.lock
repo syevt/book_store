@@ -388,6 +388,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   fog-aws
+  font-awesome-rails
   hamlit
   hamlit-rails
   jbuilder (~> 2.5)
