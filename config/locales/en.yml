@@ -13,3 +13,17 @@ en:
       price_high: 'Price: High to low'
       title_az: 'Title: A-Z'
       title_za: 'Title: Z-A'
+  layouts:
+    header:
+      brand: 'Bookstore'
+      home: 'Home'
+      shop: 'Shop'
+      account: 'My account'
+    my_account:
+      admin_panel: 'Admin panel'
+      orders: 'Orders'
+      settings: 'Settings'
+      logout: 'Log out'
+    login:
+      signup: 'Sign up'
+      login: 'Log in'

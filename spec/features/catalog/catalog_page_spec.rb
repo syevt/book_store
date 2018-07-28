@@ -10,9 +10,9 @@ feature 'Catalog page' do
       visit catalog_index_path
     end
 
-    scenario 'has catalog filter links', use_selenium: true do
-    # scenario 'has catalog filter links' do
-      sleep 20
+    # scenario 'has catalog filter links', use_selenium: true do
+    scenario 'has catalog filter links' do
+      # sleep 20
       categories.each do |category|
         expect(page).to have_css('a.filter-link', text: category)
       end
