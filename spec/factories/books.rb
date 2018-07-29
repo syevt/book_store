@@ -25,14 +25,14 @@ FactoryBot.define do
         book.materials << build_list(:material, evaluator.materials_count)
       end
 
-      factory :book_with_order_items do
+      factory :book_with_line_items do
         transient do
-          order_items_count 2
+          line_items_count 2
         end
 
         after(:build) do |book, evaluator|
-          book.order_items << build_list(
-            :order_item, evaluator.order_items_count
+          book.line_items << build_list(
+            :line_item, evaluator.line_items_count
           )
         end
       end
@@ -48,8 +48,8 @@ FactoryBot.define do
       end
     end
 
-    after :create do |b|
-      b.update_column(:main_image, "16.png")
+    after :create do |book|
+      book.update_column(:main_image, '16.png')
     end
   end
 end

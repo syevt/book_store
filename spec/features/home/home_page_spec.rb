@@ -1,5 +1,7 @@
+require 'ecomm/factories'
+
 feature 'Home page' do
-  given!(:books) { create_list(:book_with_order_items, 4) }
+  given!(:books) { create_list(:book_with_line_items, 4) }
 
   context 'with guest or logged in user' do
     background do
@@ -7,7 +9,7 @@ feature 'Home page' do
     end
 
     scenario 'has brand' do
-      expect(page).to have_css('.navbar-brand', text: 'Bookstore')
+      expect(page).to have_css('.navbar-brand', text: t('layouts.header.brand'))
     end
 
     scenario 'has shop links' do

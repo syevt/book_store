@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'catalog#index'
+  root to: 'home#index'
 
   devise_for :users
 
@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   mount Ecomm::Engine => '/store'
 
+  get 'home/index'
   get 'catalog/index'
 
   resources :books, only: :show
