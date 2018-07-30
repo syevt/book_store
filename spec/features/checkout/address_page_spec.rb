@@ -81,10 +81,6 @@ feature 'Checkout address page' do
               end
 
               scenario "with 'use billing' checked goes to delivery page" do
-              # scenario "with 'use billing' checked goes to delivery page",
-                       # use_selenium: true do
-                # sleep 300
-                # find('i.fa-check').click
                 check(t('ecomm.checkout.address.use_billing'), visible: false)
                 click_on(t('ecomm.checkout.save_continue'))
                 expect(page).to have_css(

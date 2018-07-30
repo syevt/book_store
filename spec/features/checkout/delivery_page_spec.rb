@@ -1,7 +1,9 @@
+require 'ecomm/factories'
+
 feature 'Checkout delivery page' do
   context 'with guest user' do
     scenario 'redirects to login page' do
-      visit checkout_delivery_path
+      visit ecomm.checkout_delivery_path
       expect(page).to have_content(t('devise.failure.unauthenticated'))
     end
   end
@@ -23,9 +25,10 @@ feature 'Checkout delivery page' do
 
     context 'with no order addresses' do
       scenario 'redirects to checkout address step' do
-        visit checkout_delivery_path
+        visit ecomm.checkout_delivery_path
         expect(page).to have_css(
-          'h3.general-subtitle', text: t('checkout.address.billing_address')
+          'h3.general-subtitle',
+          text: t('ecomm.checkout.address.billing_address')
         )
       end
     end
@@ -40,7 +43,7 @@ feature 'Checkout delivery page' do
             subtotal: 5.4
           }
         )
-        visit checkout_delivery_path
+        visit ecomm.checkout_delivery_path
       end
 
       scenario 'has 2 as current checkout progress step' do
@@ -51,7 +54,7 @@ feature 'Checkout delivery page' do
       scenario 'has shipment header' do
         expect(page).to have_css(
           'h3.general-subtitle',
-          text: t('checkout.delivery.shipping_method')
+          text: t('ecomm.checkout.delivery.shipping_method')
         )
       end
 
@@ -69,9 +72,9 @@ feature 'Checkout delivery page' do
       end
 
       scenario 'click on save and continue goes to credit card step' do
-        click_on(t('checkout.save_continue'))
+        click_on(t('ecomm.checkout.save_continue'))
         expect(page).to have_css(
-          'h3.general-subtitle', text: t('checkout.payment.credit_card')
+          'h3.general-subtitle', text: t('ecomm.checkout.payment.credit_card')
         )
       end
     end
