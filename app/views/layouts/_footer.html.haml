@@ -10,11 +10,11 @@
               main_app.catalog_index_path, class: 'nav-link')
           - if user_signed_in?
             %li
-              = link_to(t('layouts.my_account.orders'), orders_path,
+              = link_to(t('layouts.my_account.orders'), main_app.orders_path,
                 class: 'nav-link')
             %li
-              = link_to(t('layouts.my_account.settings'), settings_path,
-                class: 'nav-link')
+              = link_to(t('layouts.my_account.settings'),
+                main_app.settings_path, class: 'nav-link')
       .col-sm-3
         %p.general-nav-mail support@bookstore.com
         %p.general-nav-number (555)-555-5555

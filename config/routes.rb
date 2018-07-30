@@ -15,4 +15,5 @@ Rails.application.routes.draw do
 
   resources :books, only: :show
   resources :orders, only: [:index, :show]
+  resource :settings, only: :show
 end
