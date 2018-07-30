@@ -13,6 +13,18 @@ en:
       price_high: 'Price: High to low'
       title_az: 'Title: A-Z'
       title_za: 'Title: Z-A'
+
+  home:
+    index:
+      welcome: 'Welcome to our amazing Bookstore!'
+      description: |
+        We pore through hundreds of new books each month and select the five 
+        best we can find to share with our members.
+      get_started: 'Get started'
+      best_sellers: 'Best sellers'
+    carousel_book:
+      buy_now: 'Buy Now'
+
   layouts:
     header:
       brand: 'Bookstore'

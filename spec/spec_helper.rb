@@ -35,5 +35,7 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.include CarrierWave::Test::Matchers
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Rails.application.routes.url_helpers
 end
