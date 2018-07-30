@@ -1,5 +1,3 @@
-require 'ecomm/factories'
-
 feature 'Checkout delivery page' do
   context 'with guest user' do
     scenario 'redirects to login page' do

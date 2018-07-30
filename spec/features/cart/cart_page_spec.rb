@@ -1,5 +1,3 @@
-require 'ecomm/factories'
-
 feature 'Cart page' do
   context 'empty cart' do
     it 'has cart empty message' do
@@ -139,7 +137,7 @@ feature 'Cart page' do
 
       scenario 'redirects to checkout address', use_selenium: true do
         click_on(t('ecomm.carts.show.checkout'))
-        expect(page).to have_css('h1', text: t('checkout.caption'))
+        expect(page).to have_css('h1', text: t('ecomm.checkout.caption'))
       end
 
       scenario 'updates books quantities before redirecting to checkout',

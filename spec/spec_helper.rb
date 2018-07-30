@@ -4,6 +4,7 @@ SimpleCov.start
 require 'rails_helper'
 require 'capybara/rspec'
 require 'capybara/dsl'
+require 'ecomm/factories'
 require 'carrierwave/test/matchers'
 require 'rack_session_access/capybara'
 

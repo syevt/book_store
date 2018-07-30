@@ -3,7 +3,7 @@ require_relative '../../support/forms/new_credit_card_form'
 feature 'Checkout payment page' do
   context 'with guest user' do
     scenario 'redirects to login page' do
-      visit checkout_payment_path
+      visit ecomm.checkout_payment_path
       expect(page).to have_content(t('devise.failure.unauthenticated'))
     end
   end
@@ -19,10 +19,10 @@ feature 'Checkout payment page' do
     context 'with no shipment set' do
       scenario 'redirects to checkout delivery step' do
         create_list(:shipment, 3)
-        visit checkout_payment_path
+        visit ecomm.checkout_payment_path
         expect(page).to have_css(
           'h3.general-subtitle',
-          text: t('checkout.delivery.shipping_method')
+          text: t('ecomm.checkout.delivery.shipping_method')
         )
       end
     end
@@ -36,21 +36,21 @@ feature 'Checkout payment page' do
       end
 
       scenario 'has 3 as current checkout progress step' do
-        visit checkout_payment_path
+        visit ecomm.checkout_payment_path
         expect(page).to have_css('li.step.done', count: 2)
         expect(page).to have_css('li.step.active span.step-number', text: '3')
       end
 
       scenario 'has credit card header' do
-        visit checkout_payment_path
+        visit ecomm.checkout_payment_path
         expect(page).to have_css(
           'h3.general-subtitle',
-          text: t('checkout.payment.credit_card')
+          text: t('ecomm.checkout.payment.credit_card')
         )
       end
 
       scenario 'has correct totals and shipment price' do
-        visit checkout_payment_path
+        visit ecomm.checkout_payment_path
         expect(page).to have_css('p.font-16', text: '20.00')
         expect(page).to have_css('p#shipment-label', text: '5.00')
         expect(page).to have_css('strong#order-total-label', text: '25.00')
@@ -70,9 +70,9 @@ feature 'Checkout payment page' do
               subtotal: 30.0
             }
           )
-          visit checkout_payment_path
+          visit ecomm.checkout_payment_path
           credit_card_form.fill_in_with(attributes_for(:credit_card)).submit
-          expect(page).to have_button(t('checkout.confirm.place_order'))
+          expect(page).to have_button(t('ecomm.checkout.confirm.place_order'))
         end
 
         scenario 'with invalid data' do
@@ -80,13 +80,12 @@ feature 'Checkout payment page' do
             order: { shipment: attributes_for(:shipment),
                      subtotal: 50.0 }
           )
-          visit checkout_payment_path
+          visit ecomm.checkout_payment_path
           credit_card_form.fill_in_with(
             attributes_for(:credit_card, number: '1234567891011121')
           ).submit
-          expect(page).to have_content(
-            t('errors.attributes.number.luhn_invalid')
-          )
+          prefix = 'activemodel.errors.models.credit_card.attributes.'
+          expect(page).to have_content(t("#{prefix}number.luhn_invalid"))
         end
       end
     end

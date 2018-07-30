@@ -1,4 +1,3 @@
-require 'ecomm/factories'
 require_relative '../../support/forms/new_address_form'
 
 feature 'Checkout address page' do

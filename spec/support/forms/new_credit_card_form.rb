@@ -11,6 +11,6 @@ class NewCreditCardForm
   end
 
   def submit
-    click_on(t('checkout.save_continue'))
+    click_on(t('ecomm.checkout.save_continue'))
   end
 end

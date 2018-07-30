@@ -13,7 +13,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
-gem 'turbolinks', '~> 5'
+# gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 # gem 'therubyracer', platforms: :ruby
 # gem 'bcrypt', '~> 3.1.7'
