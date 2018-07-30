@@ -5,6 +5,7 @@ require 'rails_helper'
 require 'capybara/rspec'
 require 'capybara/dsl'
 require 'carrierwave/test/matchers'
+require 'rack_session_access/capybara'
 
 %w(support helpers **/shared_examples).each do |folder|
   # Dir["#{File.dirname(__FILE__)}/../spec/#{folder}/**/*.rb"].each do |file|

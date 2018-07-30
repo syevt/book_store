@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   get 'catalog/index'
 
   resources :books, only: :show
+  resources :orders, only: [:index, :show]
 end
