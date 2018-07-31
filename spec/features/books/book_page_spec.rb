@@ -88,11 +88,11 @@ feature 'Book page' do
         )
       end
 
-      scenario 'has read more button' do
+      scenario 'has read more button', use_selenium: true do
         expect(page).to have_link(t('books.book_details.read_more'))
       end
 
-      scenario 'when clicked read more link it shows read less' do
+      scenario 'clicked read more link shows read less', use_selenium: true do
         click_link(t('books.book_details.read_more'))
         expect(page).to have_link(t('books.book_details.read_less'))
       end

@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 20180731113639) do
     t.integer "height"
     t.integer "thickness"
     t.decimal "price", precision: 5, scale: 2
-    t.string "main_image"
-    t.string "images"
+    t.json "main_image"
+    t.json "images"
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

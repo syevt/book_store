@@ -5,4 +5,7 @@ class Book < ApplicationRecord
   has_many(:line_items, class_name: 'Ecomm::LineItem', foreign_key: :product_id)
   has_many(:reviews, dependent: :destroy)
   has_many(:approved_reviews, -> { approved }, class_name: 'Review')
+
+  mount_uploader(:main_image, ImageUploader)
+  mount_uploaders(:images, ImageUploader)
 end

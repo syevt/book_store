@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'catalog/index'
 
-  resources :books, only: :show
+  resources :books, only: :show do
+    resources :reviews, only: [:new, :create]
+  end
+
   resources :orders, only: [:index, :show]
   resource :settings, only: :show
 end

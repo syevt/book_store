@@ -1,7 +1,7 @@
 %main.container
   = link_to((session[:back_to_catalog] || catalog_index_path),
     class: 'general-back-link') do
-    %i.fa.fa-long-arrow-left.mr-15
+    %i.fas.fa-arrow-left.mr-15
     = t('.back_to_results')
   .row
     .col-sm-6
@@ -21,7 +21,7 @@
       .row
         .col-xs-12.col-md-4
           %p.h1.in-gold-500.mt-10= number_to_currency(@book.price)
-        = form_tag(cart_items_path, class: 'form-inline') do
+        = form_tag(ecomm.cart_items_path, class: 'form-inline') do
           .col-xs-5.col-md-3
             .input-group.general-position
               %a.input-link.quantity-decrement{data: |

@@ -1,4 +1,20 @@
 en:
+
+  books:
+    book_details:
+      back_to_results: 'Back to results'
+      add_to_cart: 'Add to Cart'
+      description: 'Description'
+      year: 'Year of publication'
+      dimensions: 'Dimensions'
+      materials: 'Materials'
+      read_more: 'Read more'
+      read_less: 'Read less'
+    book_reviews:
+      reviews: 'Reviews'
+      verified_reviewer: 'Verified reviewer'
+      write_review: 'Write review'
+
   catalog:
     index:
       caption: 'Catalog'
