@@ -4,8 +4,8 @@ SimpleCov.start
 require 'rails_helper'
 require 'capybara/rspec'
 require 'capybara/dsl'
-require 'ecomm/factories'
 require 'carrierwave/test/matchers'
+require 'ecomm/factories'
 require 'rack_session_access/capybara'
 require 'wisper/rspec/matchers'
 
@@ -41,6 +41,6 @@ RSpec.configure do |config|
   config.include CarrierWave::Test::Matchers
   config.include Devise::Test::IntegrationHelpers, type: :feature
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include Wisper::RSpec::BroadcastMatcher
   config.include Rails.application.routes.url_helpers
+  config.include Wisper::RSpec::BroadcastMatcher
 end
