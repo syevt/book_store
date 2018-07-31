@@ -1,7 +1,7 @@
 feature 'Checkout complete page' do
   context 'with guest user' do
     scenario 'redirects to login page' do
-      visit checkout_complete_path
+      visit ecomm.checkout_complete_path
       expect(page).to have_content(t('devise.failure.unauthenticated'))
     end
   end
@@ -25,8 +25,8 @@ feature 'Checkout complete page' do
         order_subtotal: 5.4
       )
       login_as(user, scope: :user)
-      visit checkout_confirm_path
-      click_on(t('checkout.confirm.place_order'))
+      visit ecomm.checkout_confirm_path
+      click_on(t('ecomm.checkout.confirm.place_order'))
     end
 
     include_examples 'order details'
@@ -38,7 +38,7 @@ feature 'Checkout complete page' do
 
     scenario 'has thanks message' do
       expect(page).to have_css(
-        'h3.general-subtitle', text: t('checkout.complete.thanks')
+        'h3.general-subtitle', text: t('ecomm.checkout.complete.thanks')
       )
     end
 
@@ -53,11 +53,11 @@ feature 'Checkout complete page' do
     end
 
     scenario 'has no address edit link' do
-      expect(page).not_to have_link('edit', href: checkout_address_path)
+      expect(page).not_to have_link('edit', href: ecomm.checkout_address_path)
     end
 
     scenario 'click back to store goes to catalog index' do
-      click_on(t('checkout.complete.back_to_store'))
+      click_on(t('ecomm.checkout.complete.back_to_store'))
       expect(page).to have_css('h1', text: t('catalog.index.caption'))
     end
   end
