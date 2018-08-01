@@ -32,12 +32,12 @@ feature 'Book page' do
         expect(find_field("quantities-#{book.id}").value).to eq('1')
       end
 
-      scenario 'clicked plus button adds 1 to quantity' do
+      scenario 'clicked plus button adds 1 to quantity', use_selenium: true do
         find("a.quantity-increment[data-target='quantities-#{book.id}']").click
         expect(find_field("quantities-#{book.id}").value).to eq('2')
       end
 
-      context 'clicked minus button' do
+      context 'clicked minus button', use_selenium: true do
         scenario 'subtract 1 from quantity if it is greater than 1' do
           3.times do
             find("a.quantity-increment[data-target='quantities-#{book.id}']")
@@ -130,7 +130,7 @@ feature 'Book page' do
       expect(page).to have_css('.img-circle', text: first_name.first)
     end
 
-    scenario "has users's name in review header" do
+    scenario "has users's name in review header", use_selenium: true do
       name = book.reviews.first.user.addresses.first.first_name + ' ' +
              book.reviews.first.user.addresses.first.last_name
       expect(page).to have_css('h4.media-heading', text: name)
@@ -173,10 +173,8 @@ feature 'Book page' do
       visit book_path(book)
     end
 
-    # scenario 'with valid review data' do
-    scenario 'with valid review data', use_selenium: true do
+    scenario 'with valid review data' do
       new_review_form.visit_page.fill_in_with(attributes_for(:review)).submit
-      sleep 300
       expect(page).to have_content(t('reviews.form.success_message'))
     end
 

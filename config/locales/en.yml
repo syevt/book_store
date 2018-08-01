@@ -55,3 +55,13 @@ en:
     login:
       signup: 'Sign up'
       login: 'Log in'
+
+  reviews:
+    form:
+      write_review: 'Write a review'
+      score: 'Score'
+      title: 'Title'
+      review: 'Review'
+      post: 'Post'
+      success_message: |
+        Review posted! It will be visible upon admin's approval.
