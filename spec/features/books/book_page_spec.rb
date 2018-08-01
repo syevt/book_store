@@ -145,9 +145,9 @@ feature 'Book page' do
   context 'with review verified by user' do
     given!(:book) do
       book = create(:book_with_reviews, reviews_count: 1)
-      order_item = create(:order_item, book_id: 1)
+      line_item = create(:line_item, product_id: 1)
       order = create(:order)
-      order.order_items << order_item
+      order.line_items << line_item
       user = User.first
       user.orders << order
       user.save

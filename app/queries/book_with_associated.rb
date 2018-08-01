@@ -8,7 +8,7 @@ class BookWithAssociated < Rectify::Query
     books = Book.where(id: @id).includes(:authors, :materials)
     return books unless @load_reviews
     books.includes(
-      line_items: [order: :user],
+      line_items: [order: :customer],
       approved_reviews: [user: :billing_address]
     )
   end
