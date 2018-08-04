@@ -173,10 +173,8 @@ feature 'Book page' do
       visit book_path(book)
     end
 
-    # scenario 'with valid review data' do
-    scenario 'with valid review data', use_selenium: true do
-      sleep 300
-      new_review_form.visit_page.fill_in_with(attributes_for(:review))#.submit
+    scenario 'with valid review data' do
+      new_review_form.visit_page.fill_in_with(attributes_for(:review)).submit
       expect(page).to have_content(t('reviews.form.success_message'))
     end
 
