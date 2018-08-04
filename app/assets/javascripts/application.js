@@ -14,6 +14,5 @@
 //= require bootstrap-sprockets
 //= require rails-ujs
 //= require trunk8
-//= require fontawesome-all.min
 //= require ecomm/application
 //= require_tree .
