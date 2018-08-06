@@ -25,7 +25,7 @@ Devise.setup do |config|
 
   config.sign_out_via = :get
 
-  config.omniauth :facebook, '213434192327649',
-                  '87d86e88c168fb69bb78208b46568077',
+  config.omniauth :facebook, Figaro.env.facebook_app_id,
+                  Figaro.env.facebook_app_secret,
                   info_fields: 'email,first_name,last_name,hometown'
 end
