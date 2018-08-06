@@ -26,3 +26,6 @@ Session.vim
 tags
 tmux*
 .directory
+
+# Ignore application configuration
+/config/application.yml
