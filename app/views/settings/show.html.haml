@@ -14,13 +14,13 @@
         .hidden-xs.hidden-sm
           .row
             .col-md-5
-              %h3.general-subtitle.mt-0= t('checkout.address.billing_address')
+              %h3.general-subtitle.mt-0= presenter.tr_billing
             .col-md-5.col-md-offset-1
-              %h3.general-subtitle.mt-0= t('checkout.address.shipping_address')
+              %h3.general-subtitle.mt-0= presenter.tr_shipping
         .row
           .col-md-5.mb-40
             .visible-xs.visible-sm
-              %h3.general-subtitle.mt-0= t('checkout.address.billing_address')
+              %h3.general-subtitle.mt-0= presenter.tr_billing
             = render('/checkout/address_fields', f: f, address: @billing,
               type: 'billing', entity: 'address')
             .text-center.general-text-align
@@ -28,7 +28,7 @@
                 class: 'btn btn-default')
           .col-md-5.col-md-offset-1.mb-25
             .visible-xs.visible-sm
-              %h3.general-subtitle.mt-0= t('checkout.address.shipping_address')
+              %h3.general-subtitle.mt-0= presenter.tr_shipping
             = form_for(@shipping, url: settings_address_path,
               method: :put) do |f|
               = render('/checkout/address_fields', f: f, address: @shipping,

@@ -21,5 +21,8 @@ Rails.application.routes.draw do
   end
 
   resources :orders, only: [:index, :show]
-  resource :settings, only: :show
+  resource :settings, only: :show do
+    resource :address, only: :update
+    resource :email, only: :update
+  end
 end

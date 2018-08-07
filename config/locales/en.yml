@@ -64,3 +64,29 @@ en:
       post: 'Post'
       success_message: |
         Review posted! It will be visible upon admin's approval.
+
+  settings:
+    show:
+      caption: 'Settings'
+      address: 'Address'
+      privacy: 'Privacy'
+      save: 'Save'
+      address_saved: 'Your %{address_type} address has been successfully saved!'
+    change_email:
+      caption: 'Email'
+      enter_email: 'Enter Email'
+      placeholder: 'Enter your email'
+      email_updated: 'Your email has been successfully updated!'
+    change_password:
+      caption: 'Password'
+      old_password: 'Old Password'
+      new_password: 'New Password'
+      confirm: 'Confirm Password'
+      change: 'Change'
+      changed_message: 'Your password has been successfully changed!'
+    remove_account:
+      caption: 'Remove Account'
+      label: 'Please Remove My Account'
+      are_you_sure: 'Are you sure?'
+      understood: 'I understand that all data will be lost'
+      removed_message: 'Your account has been successfully deleted!'
