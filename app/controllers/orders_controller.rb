@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   include Rectify::ControllerHelpers
 
   before_action(:authenticate_user!)
-  load_and_authorize_resource(only: :index)
+  load_and_authorize_resource(class: Ecomm::Order, only: :index)
 
   def index
     present OrdersPresenter.new(params: order_params)

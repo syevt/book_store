@@ -125,6 +125,7 @@ GEM
       activemodel-serializers-xml (~> 1.0)
       activesupport (~> 5.0)
       request_store (~> 1.0)
+    draper-cancancan (1.1.1)
     equalizer (0.0.11)
     erubi (1.7.1)
     excon (0.62.0)
@@ -384,6 +385,7 @@ DEPENDENCIES
   database_cleaner
   devise
   draper
+  draper-cancancan
   ecomm!
   factory_bot_rails
   faker

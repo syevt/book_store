@@ -13,8 +13,8 @@ describe OrdersController do
       it 'assigns value to @orders' do
         create(:book_with_authors_and_materials)
         2.times do
-          order = build(:order, user: user)
-          order.order_items << build(:order_item, book_id: 1)
+          order = build(:order, customer: user)
+          order.line_items << build(:line_item, product_id: 1)
           order.shipment = build(:shipment)
           order.save
         end
@@ -27,9 +27,9 @@ describe OrdersController do
     context 'GET show' do
       before do
         create(:book_with_authors_and_materials)
-        order = build(:order, user: user)
+        order = build(:order, customer: user)
         order.addresses << build(:address)
-        order.order_items << build(:order_item, book_id: 1)
+        order.line_items << build(:line_item, product_id: 1)
         order.shipment = build(:shipment)
         order.credit_card = build(:credit_card)
         order.save
@@ -47,7 +47,7 @@ describe OrdersController do
 
       it "renders 'not authorized' page with non-authorized user" do
         another_user = create(:user)
-        another_order = create(:order, user: another_user)
+        another_order = create(:order, customer: another_user)
         get :show, params: { id: another_order }
         expect(response).to render_template(file: '403.html')
       end
