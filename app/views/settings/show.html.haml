@@ -21,7 +21,7 @@
           .col-md-5.mb-40
             .visible-xs.visible-sm
               %h3.general-subtitle.mt-0= presenter.tr_billing
-            = render('/checkout/address_fields', f: f, address: @billing,
+            = render('ecomm/checkout/address_fields', f: f, address: @billing,
               type: 'billing', entity: 'address')
             .text-center.general-text-align
               = submit_tag(t('.save'), name: 'billing',
@@ -31,7 +31,7 @@
               %h3.general-subtitle.mt-0= presenter.tr_shipping
             = form_for(@shipping, url: settings_address_path,
               method: :put) do |f|
-              = render('/checkout/address_fields', f: f, address: @shipping,
+              = render('ecomm/checkout/address_fields', f: f, address: @shipping,
                 type: 'shipping', entity: 'address')
             .text-center.general-text-align
               = submit_tag(t('.save'), name: 'shipping',
