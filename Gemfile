@@ -16,6 +16,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'bootstrap-sass'
+gem 'cancancan'
 gem 'carrierwave', '~> 1.0'
 gem 'devise'
 gem 'draper'
