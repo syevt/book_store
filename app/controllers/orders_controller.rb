@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
     present OrdersPresenter.new(params: order_params)
     filter = order_params[:filter]
     @orders = @orders.order('id desc')
+    # never send params to queries directly!!!
     @orders = @orders.where(state: filter) if filter
     @orders = OrderDecorator.decorate_collection(@orders)
   end
@@ -17,7 +18,7 @@ class OrdersController < ApplicationController
     authorize!(:show, @order)
     @billing = @order.billing_address
     @shipping = @order.shipping_address || @billing
-    @order_items = @order.order_items
+    @line_items = @order.line_items
     @order.credit_card = @order.credit_card.decorate
   end
 

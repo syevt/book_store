@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   before_action { @categories = Common::GetCategoriesWithCounters.call }
   before_action(:store_current_location, unless: :devise_controller?)
 
+  rescue_from CanCan::AccessDenied do
+    render(file: "#{Rails.root}/public/403.html", status: 403, layout: false)
+  end
+
   private
 
   def store_current_location
