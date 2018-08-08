@@ -55,6 +55,22 @@ en:
       signup: 'Sign up'
       login: 'Log in'
 
+  orders:
+    index:
+      my_orders: 'My Orders'
+      no_orders: 'No orders in current selection'
+      number: 'Number'
+      completed_at: 'Completed at'
+      status: 'Status'
+      total: 'Total'
+    orders_filters:
+      all: 'All'
+      in_progress: 'In progress'
+      in_queue: 'In queue'
+      in_delivery: 'In delivery'
+      delivered: 'Delivered'
+      canceled: 'Canceled'
+
   reviews:
     form:
       write_review: 'Write a review'

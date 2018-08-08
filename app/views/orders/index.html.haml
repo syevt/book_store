@@ -20,4 +20,4 @@
             %th
               %span.in-grey-600= t('.total')
         %tbody
-          = render(@orders)
+          = render(partial: 'order', collection: @orders)

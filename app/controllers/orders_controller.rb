@@ -8,7 +8,6 @@ class OrdersController < ApplicationController
     present OrdersPresenter.new(params: order_params)
     filter = order_params[:filter]
     @orders = @orders.order('id desc')
-    # never send params to queries directly!!!
     @orders = @orders.where(state: filter) if filter
     @orders = OrderDecorator.decorate_collection(@orders)
   end

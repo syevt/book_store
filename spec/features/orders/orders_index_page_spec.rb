@@ -36,17 +36,17 @@ feature 'Orders index page' do
       )
     end
 
-    context 'with created orders' do
+    context 'with some orders been placed previously' do
       background do
         create_list(:book_with_authors_and_materials, 5)
         states[1..-1].each.with_index do |state, index|
           order = build(:order, state: state, subtotal: (index + 1),
-                                user: user)
+                                customer: user)
           order.shipment = build(:shipment)
           order.credit_card = build(:credit_card)
           order.addresses << build(:address)
           (index + 1).times do |count|
-            order.order_items << build(:order_item, book_id: (count + 1))
+            order.line_items << build(:line_item, product_id: (count + 1))
           end
           order.save
         end
@@ -76,9 +76,9 @@ feature 'Orders index page' do
       scenario 'does not show another user orders' do
         another_user = create(:user)
         order = build(:order)
-        order.order_items << build(:order_item, book_id: 1)
+        order.line_items << build(:line_item, product_id: 1)
         order.shipment = build(:shipment)
-        order.user = another_user
+        order.customer = another_user
         order.save
 
         visit orders_path
@@ -88,7 +88,7 @@ feature 'Orders index page' do
       scenario 'click on order item redirects to order page',
                use_selenium: true do
         visit orders_path
-        first('tr.order-row').click
+        first('tr.order-row td').click
         expect(page).to have_current_path(/orders\/5/)
       end
     end

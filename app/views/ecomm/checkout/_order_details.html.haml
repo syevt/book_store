@@ -1,11 +1,11 @@
 .row.mb-20
   .col-sm-3
     %h3.general-subtitle= t('ecomm.checkout.address.shipping_address')
-    = render('address_summary', address: @shipping,
+    = render('ecomm/checkout/address_summary', address: @shipping,
       render_edit_link: render_links)
   .col-sm-3
     %h3.general-subtitle= t('ecomm.checkout.address.billing_address')
-    = render('address_summary', address: @billing,
+    = render('ecomm/checkout/address_summary', address: @billing,
       render_edit_link: render_links)
   .col-sm-3
     %h3.general-subtitle= t('ecomm.checkout.shipments')
@@ -33,4 +33,4 @@
 .text-center.general-text-right
   %p.in-gold-500.font-18= t('ecomm.carts.show.order_summary')
   %table.general-summary-table.general-summary-table-right.general-text-right
-    = render('delivery_totals')
+    = render('ecomm/checkout/delivery_totals')
