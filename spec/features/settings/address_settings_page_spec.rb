@@ -1,4 +1,5 @@
 require_relative '../../support/forms/new_address_form'
+require 'ecomm/test_helpers'
 
 feature 'User address settings page' do
   context 'with guest user' do
@@ -9,6 +10,8 @@ feature 'User address settings page' do
   end
 
   context 'with logged in user' do
+    include Ecomm::TranslationHelpers
+
     def find_error_span(address_type, field)
       xpath = "//input[@name='address[#{address_type}][#{field}]']/"\
               "../following-sibling::span[@class='help-block'][1]"
@@ -39,7 +42,7 @@ feature 'User address settings page' do
         billing_form.fill_in_form(attributes_for(:address, city: ''))
         first("input[type='submit']").click
         error_span = find_error_span('billing', 'city')
-        expect(error_span).to have_content(t('errors.attributes.city.blank'))
+        expect(error_span).to have_content(attr_blank_error(:address, :city))
       end
 
       scenario "with invalid field shows 'invalid' errors" do
@@ -65,7 +68,7 @@ feature 'User address settings page' do
         all("input[type='submit']")[1].click
         error_span = find_error_span('shipping', 'first_name')
         expect(error_span).to have_content(
-          t('errors.attributes.first_name.blank')
+          attr_blank_error(:address, :first_name)
         )
       end
 
