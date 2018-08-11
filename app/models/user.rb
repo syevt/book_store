@@ -3,8 +3,11 @@ class User < ApplicationRecord
                        foreign_key: :customer_id, dependent: :destroy)
   has_one(:billing_address, -> { billing }, class_name: 'Ecomm::Address',
                                             foreign_key: :customer_id)
-  has_many(:orders, class_name: 'Ecomm::Order', foreign_key: :customer_id)
+  has_many(:orders, class_name: 'Ecomm::Order', foreign_key: :customer_id,
+                    dependent: :destroy)
   has_many(:reviews, dependent: :destroy)
+
+  after_create(:send_welcome_user)
 
   devise(:database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
@@ -23,5 +26,13 @@ class User < ApplicationRecord
       )
       user.password = Devise.friendly_token[0, 20]
     end
+  end
+
+  private
+
+  def send_welcome_user
+    UserMailer.user_email(self).deliver
+  rescue StandardError => error
+    Rails.logger.error(error.inspect)
   end
 end

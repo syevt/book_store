@@ -106,3 +106,10 @@ en:
       are_you_sure: 'Are you sure?'
       understood: 'I understand that all data will be lost'
       removed_message: 'Your account has been successfully deleted!'
+
+  user_mailer:
+    user_email:
+      subject: "Created account for %{email}"
+      title: "Welcoming %{email} at our awesome book store"
+      body_html: "Visit your %{href} to change or create some if needed"
+      settings_page: 'settings page'

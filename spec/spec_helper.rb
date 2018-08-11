@@ -10,9 +10,6 @@ require 'rack_session_access/capybara'
 require 'wisper/rspec/matchers'
 
 %w(support helpers **/shared_examples).each do |folder|
-  # Dir["#{File.dirname(__FILE__)}/../spec/#{folder}/**/*.rb"].each do |file|
-    # require file
-  # end
   Dir[Rails.root.join("spec/#{folder}/**/*.rb")].each { |file| require file }
 end
 
