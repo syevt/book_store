@@ -1,4 +1,108 @@
 en:
+  activerecord:
+    models:
+      address:
+        one: 'Address'
+        other: 'Addresses'
+      author:
+        one: 'Author'
+        other: 'Authors'
+      book:
+        one: 'Book'
+        other: 'Books'
+      category:
+        one: 'Category'
+        other: 'Categories'
+      coupon:
+        one: 'Coupon'
+        other: 'Coupons'
+      credit_card:
+        one: 'Credit card'
+        other: 'Credit cards'
+      material:
+        one: 'Material'
+        other: 'Materials'
+      order:
+        one: 'Order'
+        other: 'Orders'
+      review:
+        one: 'Review'
+        other: 'Reviews'
+      shipment:
+        one: 'Shipment'
+        other: 'Shipments'
+      user:
+        one: 'User'
+        other: 'Users'
+    attributes:
+      address:
+        <<: &first_last_name
+          first_name: 'First name'
+          last_name: 'Last name'
+        street_address: 'Street address'
+        city: 'City'
+        zip: 'Zip'
+        country: 'Country'
+        phone: 'Phone'
+      author:
+        <<: *first_last_name
+        <<: &description
+          description: 'Description'
+      book:
+        <<: &title
+          title: 'Title'
+        <<: &price
+          price: 'Price'
+        <<: *description
+        year: 'Year'
+        width: 'Width'
+        height: 'Height'
+        thickness: 'Thickness'
+        main_image: 'Main image'
+        images: 'Images'
+      category:
+        <<: &name
+          name: 'Name'
+      coupon:
+        code: 'Code'
+        expires: 'Expires'
+        discount: 'Discount'
+      credit_card:
+        number: 'Number'
+        cardholder: 'Cardholder'
+        month_year: 'Month / year'
+        cvv: 'CVV'
+      material:
+        <<: *name
+      order:
+        state:
+          state: 'State'
+          in_progress: 'In progress'
+          in_queue: 'In queue'
+          in_delivery: 'In delivery'
+          delivered: 'Delivered'
+          canceled: 'Canceled'
+      review:
+        <<: *title
+        score: 'Score'
+        body: 'Body'
+        state:
+          state: 'State'
+          unprocessed: 'Unprocessed'
+          approved: 'Approved'
+          rejected: 'Rejected'
+      shipment:
+        <<: *price
+        method: 'Method'
+        days_min: 'Days min'
+        days_max: 'Days max'
+    errors:
+      models:
+        book:
+          empty_category: 'A book must have a category'
+          empty_authors: 'There should be one author at least'
+          empty_materials: 'Pick one material at least'
+
   books:
     book_details:
       back_to_results: 'Back to results'

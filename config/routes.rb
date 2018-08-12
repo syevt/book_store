@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     get 'logout', to: 'devise/sessions#destroy'
   end
 
+  ActiveAdmin.routes(self)
+
   mount Ecomm::Engine => '/store'
 
   get 'home/index'

@@ -7,6 +7,13 @@ class ApplicationController < ActionController::Base
     render(file: "#{Rails.root}/public/403.html", status: 403, layout: false)
   end
 
+  def authenticate_active_admin_user!
+    authenticate_user!
+    return if current_user.admin?
+    flash[:alert] = t('admin.not_authorized')
+    redirect_to(root_path)
+  end
+
   private
 
   def store_current_location
