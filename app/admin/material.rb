@@ -15,6 +15,8 @@ ActiveAdmin.register Material do
   end
 
   controller do
+    include ActiveAdmin::TranslationHelpers
+
     def new
       @material = MaterialForm.new
     end
@@ -23,7 +25,7 @@ ActiveAdmin.register Material do
       @material = MaterialForm.from_params(params)
       return render('new') if @material.invalid?
       Material.create(@material.attributes)
-      flash[:notice] = t('.created_message')
+      flash.notice = aa_tr(:material, :create)
       redirect_to(collection_path)
     end
 
@@ -35,7 +37,7 @@ ActiveAdmin.register Material do
       @material = MaterialForm.from_params(params)
       return render('edit') if @material.invalid?
       Material.find(params[:id]).update_attributes(@material.attributes)
-      flash[:notice] = t('.updated_message')
+      flash.notice = aa_tr(:material, :update)
       redirect_to(resource_path)
     end
   end
