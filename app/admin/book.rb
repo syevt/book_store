@@ -82,6 +82,8 @@ ActiveAdmin.register Book do
   end
 
   controller do
+    include ActiveAdmin::TranslationHelpers
+
     def new
       @book = BookForm.new
     end
@@ -90,7 +92,7 @@ ActiveAdmin.register Book do
       @book = BookForm.from_params(params)
       return render('new') if @book.invalid?
       Book.create(@book.attributes)
-      flash[:notice] = t('.created_message')
+      flash.notice = aa_tr(:book, :create)
       redirect_to(collection_path)
     end
 
@@ -102,7 +104,7 @@ ActiveAdmin.register Book do
       @book = BookForm.from_params(params)
       return render('edit') if @book.invalid?
       Book.find(params[:id]).update_attributes(@book.attributes)
-      flash[:notice] = t('.updated_message')
+      flash.notice = aa_tr(:book, :update)
       redirect_to(resource_path)
     end
   end

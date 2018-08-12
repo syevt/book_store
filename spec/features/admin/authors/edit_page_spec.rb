@@ -2,6 +2,7 @@ require_relative '../../../support/forms/admin_author_form'
 
 feature 'Admin edit Author page' do
   include ActiveAdmin::TranslationHelpers
+
   include_examples 'not authorized', :edit_admin_author_path, 1
 
   context 'with admin' do
