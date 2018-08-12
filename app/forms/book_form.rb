@@ -26,7 +26,7 @@ class BookForm < Rectify::Form
             length: { maximum: 1000 })
   validates(:year, numericality: {
               only_integer: true,
-              greater_than: 1990,
+              greater_than: Date.today.years_ago(30).year,
               less_than_or_equal_to: Date.today.year
             })
   validates(:height, numericality: {
