@@ -103,6 +103,79 @@ en:
           empty_authors: 'There should be one author at least'
           empty_materials: 'Pick one material at least'
 
+  active_admin:
+    page:
+      index:
+        recent_orders: 'Recent Orders'
+        recent_reviews: 'Recent Reviews'
+        <<: &common_index_labels
+          state: 'State'
+          date: 'Date'
+        <<: &order_index_labels
+          order: 'Order'
+          customer: 'Customer'
+          total: 'Total'
+        <<: &review_index_labels
+          title: 'Title'
+          body: 'Body'
+          book: 'Book'
+          user: 'User'
+    resource:
+      index:
+        <<: &actions
+          actions: 'Actions'
+        all: 'All'
+        book:
+          image: 'Image'
+        order:
+          <<: *common_index_labels
+          <<: *order_index_labels
+          <<: &order_actions
+            in_progress: 'In progress'
+            delivered: 'Delivered'
+            canceled: 'Canceled'
+            queue: 'Queue'
+            deliver: 'Deliver'
+            complete: 'Complete'
+            cancel: 'Cancel'
+        review:
+          <<: *common_index_labels
+          <<: *review_index_labels
+          <<: &review_actions
+            unprocessed: 'Unprocessed'
+            approved: 'Approved'
+            rejected: 'Rejected'
+            approve: 'Approve'
+            reject: 'Reject'
+      show:
+        <<: *actions
+        book:
+          images: 'Images'
+          dimensions: 'Dimensions'
+        order:
+          items_total: 'Items total'
+          <<: *order_actions
+        review:
+          <<: *common_index_labels
+          <<: *review_actions
+      new:
+        author: &author_form_labels
+          author_details: 'Author details'
+        book: &book_form_labels
+          book_details: 'Book details'
+          category: 'Category'
+          authors: 'Authors'
+          materials: 'Materials'
+        book_category: &category_form_labels
+          category_details: 'Category details'
+        user: &user_form_labels
+          user_details: 'User details'
+      edit:
+        author: *author_form_labels
+        book: *book_form_labels
+        book_category: *category_form_labels
+        user: *user_form_labels
+
   books:
     book_details:
       back_to_results: 'Back to results'
