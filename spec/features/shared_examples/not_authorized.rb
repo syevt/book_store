@@ -11,7 +11,7 @@ shared_examples 'not authorized' do |path, id|
       create_list(:book_with_authors_and_materials, 3)
       login_as(create(:user), scope: :user)
       visit id ? send(path, id) : send(path)
-      expect(page).to have_content(t('admin.not_authorized'))
+      expect(page).to have_content(t('active_admin.not_authorized'))
     end
   end
 end

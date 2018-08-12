@@ -104,6 +104,35 @@ en:
           empty_materials: 'Pick one material at least'
 
   active_admin:
+    not_authorized: 'You are not authorized to access this resource!'
+    authors:
+      batch_action:
+        deleted_message: 'Selected authors have been successfully deleted!'
+      create:
+        created_message: 'The new author has been successfully added!'
+      update:
+        updated_message: 'The author`s details have been updated!'
+    books:
+      batch_action:
+        deleted_message: 'Selected books have been successfully deleted!'
+      create:
+        created_message: 'The book has been successfully created!'
+      update:
+        updated_message: 'The book has been successfully updated!'
+    book_categories:
+      batch_action:
+        deleted_message: 'Selected categories have been successfully deleted!'
+      create:
+        created_message: 'The new category has been successfully added!'
+      update:
+        updated_message: 'The category has been successfully updated!'
+    materials:
+      batch_action:
+        deleted_message: 'Selected materials have been successfully deleted!'
+      create:
+        created_message: 'The new material has been successfully added!'
+      update:
+        updated_message: 'The material has been successfully updated!'
     page:
       index:
         recent_orders: 'Recent Orders'

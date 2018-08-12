@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   def authenticate_active_admin_user!
     authenticate_user!
     return if current_user.admin?
-    flash[:alert] = t('admin.not_authorized')
+    flash.alert = t('active_admin.not_authorized')
     redirect_to(root_path)
   end
 

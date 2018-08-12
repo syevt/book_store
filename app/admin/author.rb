@@ -19,6 +19,8 @@ ActiveAdmin.register Author do
   end
 
   controller do
+    include ActiveAdmin::TranslationHelpers
+
     def new
       @author = AuthorForm.new
     end
@@ -39,7 +41,8 @@ ActiveAdmin.register Author do
       @author = AuthorForm.from_params(params)
       return render('edit') if @author.invalid?
       Author.find(params[:id]).update_attributes(@author.attributes)
-      flash[:notice] = t('.updated_message')
+      # flash[:notice] = t('.updated_message')
+      flash.notice = aa_tr(:author, :update)
       redirect_to(resource_path)
     end
   end
