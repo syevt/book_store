@@ -15,6 +15,8 @@ ActiveAdmin.register Category, as: 'book-category' do
   end
 
   controller do
+    include ActiveAdmin::TranslationHelpers
+
     def new
       @book_category = CategoryForm.new
     end
@@ -23,7 +25,7 @@ ActiveAdmin.register Category, as: 'book-category' do
       @book_category = CategoryForm.from_params(params)
       return render('new') if @book_category.invalid?
       Category.create(@book_category.attributes)
-      flash[:notice] = t('.created_message')
+      flash.notice = aa_tr(:book_category, :create)
       redirect_to(collection_path)
     end
 
@@ -35,7 +37,7 @@ ActiveAdmin.register Category, as: 'book-category' do
       @book_category = CategoryForm.from_params(params)
       return render('edit') if @book_category.invalid?
       Category.find(params[:id]).update_attributes(@book_category.attributes)
-      flash[:notice] = t('.updated_message')
+      flash.notice = aa_tr(:book_category, :update)
       redirect_to(resource_path)
     end
   end
