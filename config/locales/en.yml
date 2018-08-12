@@ -197,12 +197,15 @@ en:
           materials: 'Materials'
         book_category: &category_form_labels
           category_details: 'Category details'
+        material: &material_form_labels
+          material_details: 'Material details'
         user: &user_form_labels
           user_details: 'User details'
       edit:
         author: *author_form_labels
         book: *book_form_labels
         book_category: *category_form_labels
+        material: *material_form_labels
         user: *user_form_labels
 
   books:
