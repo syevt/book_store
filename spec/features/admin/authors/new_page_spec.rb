@@ -1,6 +1,7 @@
 require_relative '../../../support/forms/admin_author_form'
 
 feature 'Admin new Author page' do
+  include ActiveAdmin::TranslationHelpers
   include_examples 'not authorized', :new_admin_author_path
 
   context 'with admin' do
@@ -16,7 +17,7 @@ feature 'Admin new Author page' do
 
     scenario 'with valid author data shows success message' do
       form.fill_in_with(attributes_for(:author)).submit('Create')
-      expect(page).to have_content(t('admin.authors.create.created_message'))
+      expect(page).to have_content(aa_tr(:author, :create))
     end
 
     scenario 'with invalid author data shows errors' do

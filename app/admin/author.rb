@@ -29,7 +29,7 @@ ActiveAdmin.register Author do
       @author = AuthorForm.from_params(params)
       return render('new') if @author.invalid?
       Author.create(@author.attributes)
-      flash[:notice] = t('.created_message')
+      flash.notice = aa_tr(:author, :create)
       redirect_to(collection_path)
     end
 
@@ -41,7 +41,6 @@ ActiveAdmin.register Author do
       @author = AuthorForm.from_params(params)
       return render('edit') if @author.invalid?
       Author.find(params[:id]).update_attributes(@author.attributes)
-      # flash[:notice] = t('.updated_message')
       flash.notice = aa_tr(:author, :update)
       redirect_to(resource_path)
     end
