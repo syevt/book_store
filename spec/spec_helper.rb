@@ -9,7 +9,7 @@ require 'ecomm/factories'
 require 'rack_session_access/capybara'
 require 'wisper/rspec/matchers'
 
-%w(support helpers **/shared_examples).each do |folder|
+%w(support helpers **/shared_examples **/shared_contexts).each do |folder|
   Dir[Rails.root.join("spec/#{folder}/**/*.rb")].each { |file| require file }
 end
 
@@ -40,4 +40,5 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Rails.application.routes.url_helpers
   config.include Wisper::RSpec::BroadcastMatcher
+  config.include AASMHelpers, :include_aasm_helpers
 end

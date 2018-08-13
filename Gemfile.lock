@@ -20,6 +20,8 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.0.0)
+      concurrent-ruby (~> 1.0)
     actioncable (5.1.6)
       actionpack (= 5.1.6)
       nio4r (~> 2.0)
@@ -55,6 +57,10 @@ GEM
       ransack (~> 1.3)
       sass (~> 3.1)
       sprockets (< 4.1)
+    activeadmin_addons (0.12.0)
+      railties
+      select2-rails (~> 3.5.9)
+      xdan-datetimepicker-rails (~> 2.5.1)
     activejob (5.1.6)
       activesupport (= 5.1.6)
       globalid (>= 0.3.6)
@@ -365,6 +371,8 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    select2-rails (3.5.10)
+      thor (~> 0.14)
     selenium-webdriver (3.13.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
@@ -414,6 +422,9 @@ GEM
     websocket-extensions (0.1.3)
     wisper (2.0.0)
     wisper-rspec (1.1.0)
+    xdan-datetimepicker-rails (2.5.4)
+      jquery-rails
+      rails (>= 3.2.16)
     xpath (3.1.0)
       nokogiri (~> 1.8)
 
@@ -421,7 +432,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   activeadmin
+  activeadmin_addons
   bootstrap-sass
   byebug
   cancancan
