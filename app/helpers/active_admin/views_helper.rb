@@ -1,7 +1,8 @@
 module ActiveAdmin
   module ViewsHelper
     def order_aasm_links(order)
-      actions = %w(queue deliver complete cancel).map do |action|
+      actions = Ecomm::Order.aasm.events.map do |event|
+        action = event.name
         next unless order.send("may_#{action}?")
         link_to(
           t(".order.#{action}"), send("order_#{action}_path", order.id),
@@ -12,7 +13,8 @@ module ActiveAdmin
     end
 
     def review_aasm_links(review)
-      actions = %w(approve reject).map do |action|
+      actions = Review.aasm.events.map do |event|
+        action = event.name
         next unless review.send("may_#{action}?")
         link_to(
           t(".review.#{action}"), send("review_#{action}_path", review.id),

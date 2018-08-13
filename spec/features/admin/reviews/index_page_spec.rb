@@ -60,7 +60,7 @@ feature 'Admin Review index page', :include_aasm_helpers do
         end
 
         include_examples 'active admin filters',
-                         filters: %i(unprocessed approved rejected),
+                         filters: Review.aasm.states.map(&:name),
                          entity: :reviews
       end
     end

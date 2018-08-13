@@ -8,9 +8,7 @@ feature 'Orders index page' do
 
   context 'with logged in user' do
     given!(:user) { create(:user) }
-    given(:states) {
-      %w[all in_progress in_queue in_delivery delivered canceled]
-    }
+    given(:states) { Ecomm::Order.aasm.states.map(&:name).unshift(:all) }
 
     background { login_as(user, scope: :user) }
 

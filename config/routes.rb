@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   mount Ecomm::Engine => '/store'
 
   scope '/admin/aasm', module: :admin do
-    review_events = [:approve, :reject]
+    review_events = Review.aasm.events.map(&:name)
     resources :reviews, only: review_events do
       review_events.each { |event| put event }
     end
