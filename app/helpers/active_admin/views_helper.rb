@@ -1,29 +1,5 @@
 module ActiveAdmin
   module ViewsHelper
-    def order_aasm_links(order)
-      actions = Ecomm::Order.aasm.events.map do |event|
-        action = event.name
-        next unless order.send("may_#{action}?")
-        link_to(
-          t(".order.#{action}"), send("order_#{action}_path", order.id),
-          method: :put, class: "button #{action}_button"
-        )
-      end
-      raw actions.join(' ')
-    end
-
-    def review_aasm_links(review)
-      actions = Review.aasm.events.map do |event|
-        action = event.name
-        next unless review.send("may_#{action}?")
-        link_to(
-          t(".review.#{action}"), send("review_#{action}_path", review.id),
-          method: :put, class: "button #{action}_button"
-        )
-      end
-      raw actions.join(' ')
-    end
-
     def aasm_events_select(resource)
       events = resource.aasm.events.map do |event|
         [t("active_admin.aasm.events.#{event.name}"), event.name]

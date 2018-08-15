@@ -185,6 +185,7 @@ en:
           <<: *order_states
         review:
           <<: *common_index_labels
+          <<: *review_index_labels
       new:
         author: &author_form_labels
           author_details: 'Author details'

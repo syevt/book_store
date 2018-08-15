@@ -13,7 +13,7 @@ feature 'Admin Review index page', :include_aasm_helpers do
         login_as(admin_user, scope: :user)
         visit admin_reviews_path
         click_link(review.title[0..10])
-        expect(page).to have_text(review.body)
+        expect(page).to have_text(review.body[-1..-20])
       end
     end
 

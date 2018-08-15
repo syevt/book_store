@@ -33,7 +33,10 @@ ActiveAdmin.register Review do
 
   show do
     attributes_table do
-      state_row(t('.review.state'), :state)
+      row(t('.review.state')) do |review|
+        span(review.state, class: "status_tag #{review.state}")
+      end
+      row(t('.actions')) { |review| aasm_events_select(review) }
       row(t('activerecord.models.user.one')) do |review|
         link_to(review.user.email, admin_user_path(review.user))
       end
@@ -41,8 +44,10 @@ ActiveAdmin.register Review do
         link_to(review.book.title, admin_book_path(review.book))
       end
       row(:title) { |review| h4(review.title) }
-      row(:body, &:body)
-      row(t('.actions')) { |review| review_aasm_links(review) }
+      # row(:body, &:body)
+      row(t('.review.body')) do |review|
+        markdown(review.body)
+      end
     end
   end
 
