@@ -1,12 +1,14 @@
 ActiveAdmin.register Review do
-  actions(:index, :show)
+  actions(:index, :show, :update)
 
+  config.batch_actions = false
   config.filters = false
 
-  scope(I18n.t('.active_admin.resource.index.all'), :all, default: true)
-  scope(I18n.t('.active_admin.resource.index.review.unprocessed'), :unprocessed)
-  scope(I18n.t('.active_admin.resource.index.review.approved'), :approved)
-  scope(I18n.t('.active_admin.resource.index.review.rejected'), :rejected)
+  scope(I18n.t('active_admin.resource.index.all'), :all, default: true)
+  tr_key = 'activerecord.attributes.review.state.'
+  Review.aasm.states.map(&:name).each do |state|
+    scope(I18n.t(tr_key + state.to_s), state)
+  end
 
   index do
     column(t('.review.book')) do |review|
@@ -26,7 +28,7 @@ ActiveAdmin.register Review do
     column(t('.review.state')) do |review|
       span(review.state, class: "status_tag #{review.state}")
     end
-    column(t('.actions')) { |review| review_aasm_links(review) }
+    column(t('.actions')) { |review| aasm_events_select(review) }
   end
 
   show do
@@ -45,11 +47,9 @@ ActiveAdmin.register Review do
   end
 
   controller do
-    %i(approve reject).each do |action|
-      define_method(action) do
-        Review.find(params[:review_id]).send(action.to_s << '!')
-        redirect_to(request.referrer)
-      end
+    def update
+      Review.find(params[:id]).send(params[:event].to_s << '!')
+      redirect_to(request.referrer)
     end
   end
 end

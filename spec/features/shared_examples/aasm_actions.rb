@@ -23,8 +23,8 @@ shared_examples 'aasm actions' do |params|
           next_allowed_actions = nil
         end
 
-        context "click on #{action} changes state to #{next_state}" do
-          background { click_on(t("#{aa_prefix}#{action}")) }
+        context "click on #{action} option changes state to #{next_state}" do
+          background { select(t("#{event_tr_prefix}#{action}", from: 'event')) }
 
           include_examples 'aasm state events', next_state, next_allowed_actions
         end

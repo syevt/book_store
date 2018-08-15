@@ -104,6 +104,15 @@ en:
           empty_materials: 'Pick one material at least'
 
   active_admin:
+    aasm:
+      events:
+        choose_action: 'Choose action...'
+        queue: 'Queue'
+        deliver: 'Deliver'
+        complete: 'Complete'
+        cancel: 'Cancel'
+        approve: 'Approve'
+        reject: 'Reject'
     not_authorized: 'You are not authorized to access this resource!'
     authors:
       batch_action:
@@ -159,23 +168,13 @@ en:
         order:
           <<: *common_index_labels
           <<: *order_index_labels
-          <<: &order_actions
+          <<: &order_states
             in_progress: 'In progress'
             delivered: 'Delivered'
             canceled: 'Canceled'
-            queue: 'Queue'
-            deliver: 'Deliver'
-            complete: 'Complete'
-            cancel: 'Cancel'
         review:
           <<: *common_index_labels
           <<: *review_index_labels
-          <<: &review_actions
-            unprocessed: 'Unprocessed'
-            approved: 'Approved'
-            rejected: 'Rejected'
-            approve: 'Approve'
-            reject: 'Reject'
       show:
         <<: *actions
         book:
@@ -183,10 +182,9 @@ en:
           dimensions: 'Dimensions'
         order:
           items_total: 'Items total'
-          <<: *order_actions
+          <<: *order_states
         review:
           <<: *common_index_labels
-          <<: *review_actions
       new:
         author: &author_form_labels
           author_details: 'Author details'

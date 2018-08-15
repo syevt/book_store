@@ -32,28 +32,19 @@ feature 'Admin Review index page', :include_aasm_helpers do
       scenario 'shows list of reviews with proper states', use_selenium: true do
         {
           book.title => 6,
-          state_label(ar_prefix, :rejected) => 3,
-          state_label(ar_prefix, :approved) => 2,
-          state_label(ar_prefix, :unprocessed) => 1
+          state_label(state_tr_prefix, :rejected) => 3,
+          state_label(state_tr_prefix, :approved) => 2,
+          state_label(state_tr_prefix, :unprocessed) => 1
         }.each { |key, value| expect(page).to have_text(key, count: value) }
-      end
-
-      scenario 'shows proper state change buttons' do
-        {
-          t("#{aa_prefix}reject") => 3,
-          t("#{aa_prefix}approve") => 1
-        }.each do |key, value|
-          expect(page).to have_css('.button', text: key, count: value)
-        end
       end
 
       context 'filters' do
         scenario 'shows review list filters' do
           [
             'All (6)',
-            t("#{aa_prefix}rejected") + ' (3)',
-            t("#{aa_prefix}approved") + ' (2)',
-            t("#{aa_prefix}unprocessed") + ' (1)'
+            t("#{state_tr_prefix}rejected") + ' (3)',
+            t("#{state_tr_prefix}approved") + ' (2)',
+            t("#{state_tr_prefix}unprocessed") + ' (1)'
           ].each do |text|
             expect(page).to have_css('.table_tools_button', text: text)
           end

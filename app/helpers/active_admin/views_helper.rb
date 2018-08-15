@@ -24,6 +24,17 @@ module ActiveAdmin
       raw actions.join(' ')
     end
 
+    def aasm_events_select(resource)
+      events = resource.aasm.events.map do |event|
+        [t("active_admin.aasm.events.#{event.name}"), event.name]
+      end
+
+      path = send("admin_#{resource.class.name.downcase}_path", resource)
+
+      render(partial: 'admin/aasm/events',
+             locals: { resource: resource, collection: events, path: path })
+    end
+
     def render_address(address)
       to_p_with_br(["#{address.first_name} #{address.last_name}",
                     address.street_address,

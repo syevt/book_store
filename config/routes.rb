@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
+  get 'home/index'
+  get 'catalog/index'
+
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
@@ -11,19 +14,9 @@ Rails.application.routes.draw do
     get 'logout', to: 'devise/sessions#destroy'
   end
 
-  ActiveAdmin.routes(self)
-
   mount Ecomm::Engine => '/store'
 
-  scope '/admin/aasm', module: :admin do
-    review_events = Review.aasm.events.map(&:name)
-    resources :reviews, only: review_events do
-      review_events.each { |event| put event }
-    end
-  end
-
-  get 'home/index'
-  get 'catalog/index'
+  ActiveAdmin.routes(self)
 
   resources :books, only: :show do
     resources :reviews, only: [:new, :create]
