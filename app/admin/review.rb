@@ -26,7 +26,7 @@ ActiveAdmin.register Review do
       link_to(review.user.email, admin_user_path(review.user))
     end
     column(t('.review.state')) do |review|
-      span(review.state, class: "status_tag #{review.state}")
+      span(t(tr_key + review.state), class: "status_tag #{review.state}")
     end
     column(t('.actions')) { |review| aasm_events_select(review) }
   end
@@ -34,7 +34,7 @@ ActiveAdmin.register Review do
   show do
     attributes_table do
       row(t('.review.state')) do |review|
-        span(review.state, class: "status_tag #{review.state}")
+        span(t(tr_key + review.state), class: "status_tag #{review.state}")
       end
       row(t('.actions')) { |review| aasm_events_select(review) }
       row(t('activerecord.models.user.one')) do |review|
@@ -44,7 +44,6 @@ ActiveAdmin.register Review do
         link_to(review.book.title, admin_book_path(review.book))
       end
       row(:title) { |review| h4(review.title) }
-      # row(:body, &:body)
       row(t('.review.body')) do |review|
         markdown(review.body)
       end

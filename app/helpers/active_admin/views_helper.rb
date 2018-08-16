@@ -5,7 +5,8 @@ module ActiveAdmin
         [t("active_admin.aasm.events.#{event.name}"), event.name]
       end
 
-      path = send("admin_#{resource.class.name.downcase}_path", resource)
+      path = send("admin_#{resource.class.name.demodulize.underscore}_path",
+                  resource)
 
       render(partial: 'admin/aasm/events',
              locals: { resource: resource, collection: events, path: path })
