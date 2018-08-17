@@ -9,7 +9,7 @@ module ActiveAdmin
                   resource)
 
       render(partial: 'admin/aasm/events',
-             locals: { resource: resource, collection: events, path: path })
+             locals: { resource: resource, path: path, collection: events })
     end
 
     def render_address(address)

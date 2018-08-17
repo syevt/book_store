@@ -36,7 +36,6 @@ feature 'Admin Order index page', :include_aasm_helpers do
 
       scenario 'shows list of orders with appropriate states',
                use_selenium: true do
-        # sleep 30
         {
           /r0000/i => 15,
           state_label(state_tr_prefix, :canceled) => 5,
