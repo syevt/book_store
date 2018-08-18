@@ -34,7 +34,6 @@ feature 'Admin dashboard page' do
       create(:review, book: another_book, user: admin_user)
       create_list(:review, 10, book: book, user: admin_user)
       visit admin_root_path
-      sleep 30
       expect(page).to have_content(book.title, count: 10)
       expect(page).not_to have_content(another_book.title)
       expect(page).to have_content(
