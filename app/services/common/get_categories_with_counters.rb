@@ -1,5 +1,5 @@
 module Common
-  class GetCategoriesWithCounters < BaseService
+  class GetCategoriesWithCounters < Ecomm::BaseService
     def call
       cats_hash = Category.joins(:books)
                           .group('categories.name', 'categories.id').count
