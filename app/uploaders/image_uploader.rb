@@ -14,7 +14,7 @@ class ImageUploader < CarrierWave::Uploader::Base
       [version_name, 'default.png'].compact.join('_')
   end
 
-  process(resize_to_fit: [700, 700])
+  process(resize_to_fit: [550, 550])
 
   version(:thumb) do
     process(resize_to_fit: [70, 70])
