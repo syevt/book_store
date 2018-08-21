@@ -5,6 +5,18 @@ describe ReviewsController do
 
     before { sign_in(user) }
 
+    context 'GET index' do
+      it 'ensures flash to keep its state' do
+        expect_any_instance_of(ActionDispatch::Flash::FlashHash).to receive(:keep)
+        get :index, params: { book_id: 1 }
+      end
+
+      it 'redirects to new book review path' do
+        get :index, params: { book_id: 1 }
+        expect(response).to redirect_to(new_book_review_path(1))
+      end
+    end
+
     context 'GET new' do
       before { get :new, params: { book_id: book } }
 

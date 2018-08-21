@@ -1,17 +1,24 @@
 require_relative '../../support/forms/new_review_form'
 
 feature 'Book page' do
+  shared_examples 'add to cart' do
+    scenario 'click add to cart adds books to cart' do
+      click_button(t('books.book_details.add_to_cart'))
+      expect(page).to have_css(
+        '.visible-xs .shop-quantity',
+        visible: false, text: '1'
+      )
+      expect(page).to have_css('.hidden-xs .shop-quantity', text: '1')
+    end
+  end
+
   context 'without reviews' do
     given!(:book) do
-      create(
-        :book_with_authors_and_materials,
-        description: Faker::Hipster.paragraph(20)[0..990]
-      )
+      create(:book_with_authors_and_materials,
+             description: Faker::Hipster.paragraph(20)[0..990])
     end
 
-    background do
-      visit book_path(book)
-    end
+    background { visit book_path(book) }
 
     scenario 'has book title' do
       expect(page).to have_css('h1', text: book.title)
@@ -56,14 +63,7 @@ feature 'Book page' do
       end
     end
 
-    scenario 'click add to cart adds books to cart' do
-      click_button(t('books.book_details.add_to_cart'))
-      expect(page).to have_css(
-        '.visible-xs .shop-quantity',
-        visible: false, text: '1'
-      )
-      expect(page).to have_css('.hidden-xs .shop-quantity', text: '1')
-    end
+    include_examples 'add to cart'
 
     scenario 'has book publication year' do
       expect(page).to have_css('p.general-item-info', text: book.year)
@@ -173,16 +173,30 @@ feature 'Book page' do
       visit book_path(book)
     end
 
-    scenario 'with valid review data' do
+    scenario 'with valid review data shows success message' do
       new_review_form.visit_page.fill_in_with(attributes_for(:review)).submit
       expect(page).to have_content(t('reviews.form.success_message'))
     end
 
-    scenario 'with invalid review data' do
-      new_review_form.visit_page.fill_in_with(
-        attributes_for(:review, body: nil)
-      ).submit
-      expect(page).to have_content(t('errors.messages.blank'))
+    context 'with invalid review data' do
+      background do
+        new_review_form.visit_page.fill_in_with(
+          attributes_for(:review, body: nil)
+        ).submit
+      end
+
+      scenario 'shows review form errors' do
+        expect(page).to have_content(t('errors.messages.blank'))
+      end
+
+      context "and then click on 'Add to cart'" do
+        include_examples 'add to cart'
+
+        scenario 'redirects back to new review' do
+          click_button(t('books.book_details.add_to_cart'))
+          expect(page).to have_field('review_title')
+        end
+      end
     end
   end
 end

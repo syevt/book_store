@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :books, only: :show do
-    resources :reviews, only: [:new, :create]
+    resources :reviews, only: [:index, :new, :create]
   end
 
   resources :orders, only: [:index, :show]

@@ -3,6 +3,11 @@ class ReviewsController < ApplicationController
 
   before_action(:authenticate_user!)
 
+  def index
+    flash.keep
+    redirect_to new_book_review_path(params[:book_id])
+  end
+
   def new
     @book = BookWithAssociated.new(params[:book_id]).first.decorate
     @review = ReviewForm.new(book_id: @book.id, score: 0)
