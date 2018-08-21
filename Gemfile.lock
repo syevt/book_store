@@ -1,5 +1,7 @@
-PATH
-  remote: ../ecomm
+GIT
+  remote: https://github.com/evtik/ecomm.git
+  revision: 022acbdc0cdd44e73da80a168f766ba415b62cf8
+  branch: develop
   specs:
     ecomm (0.1.0)
       bootstrap-sass
