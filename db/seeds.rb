@@ -1,5 +1,6 @@
 require 'database_cleaner'
 require 'factory_bot_rails'
+require 'ecomm/factories'
 
 include FactoryBot::Syntax::Methods
 
@@ -24,16 +25,18 @@ materials =
 
 authors = create_list(:author, numbers[:authors])
 
-portraits_glob = Dir.glob('~/Pictures/books/portrait/*.*')
-portrait_images = portraits_glob.map { |file| File.open(file) }
-
-landscapes_glob = Dir.glob('~/Pictures/books/landscape/*.*')
-landscape_images = landscapes_glob.map { |file| File.open(file) }
+def image_url(format, number)
+  "https://s3.eu-central-1.amazonaws.com/sybseimages/#{format}/#{number}.jpg"
+end
 
 numbers[:books].times do |i|
   book = Book.new
-  book.main_image = portrait_images.sample
-  book.images = landscape_images.sample(3)
+  book.remote_main_image_url = image_url('portrait', i + 1)
+
+  book.remote_images_urls = [*1..numbers[:books]].sample(3).map do |n|
+    image_url('landscape', n)
+  end
+
   book.title = Faker::Book.title.truncate(70)
   book.year = (1997..2016).to_a.sample
   book.description = Faker::Hipster.paragraph(9, false, 17).truncate(990)
@@ -47,5 +50,11 @@ numbers[:books].times do |i|
   book.created_at = DateTime.now - (numbers[:books] - i).days
   book.save!
 end
+
+[
+  { method: 'Delivery next day!', days_min: 3, days_max: 7, price: 5.00 },
+  { method: 'Pick Up In-Store', days_min: 5, days_max: 20, price: 10.00 },
+  { method: 'Expressit', days_min: 2, days_max: 3, price: 15.00 }
+].each { |shipment| Ecomm::Shipment.create!(shipment) }
 
 10.times { |i| create(:coupon, code: i.to_s * 6, expires: DateTime.now + 2.year) }
