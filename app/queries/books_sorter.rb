@@ -13,7 +13,7 @@ class BooksSorter < Rectify::Query
 
   def query
     books = if @params['sort_by'] == 'popular'
-              Book.joins(:line_items).group('books.id')
+              Book.left_joins(:line_items).group('books.id')
                   .order('sum(ecomm_line_items.quantity) DESC')
             else
               Book.order(SORTERS[@params.slice('sort_by', 'order')])
