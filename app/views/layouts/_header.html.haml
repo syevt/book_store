@@ -16,7 +16,7 @@
           %span{'aria-hidden': 'true'} &times;
         %ul.nav.navbar-nav
           %li
-            = link_to(t('.home'), root_path)
+            = link_to(t('.home'), main_app.root_path)
           %li
             %a{type: 'button', 'data-toggle': 'collapse',
             href: '#shop-menu', 'aria-expanded': 'false', |
@@ -35,7 +35,7 @@
       .hidden-xs
         %ul.nav.navbar-nav
           %li
-            = link_to(t('.home'), root_path)
+            = link_to(t('.home'), main_app.root_path)
           %li.dropdown
             %a.dropdown-toggle{'data-toggle': 'dropdown',
               role: 'button', 'aria-haspopup': 'true',

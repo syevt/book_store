@@ -4,7 +4,8 @@
       .col-sm-9
         %ul.list-inline.general-align.mb-25
           %li
-            = link_to(t('layouts.header.home'), root_path, class: 'nav-link')
+            = link_to(t('layouts.header.home'),
+              main_app.root_path, class: 'nav-link')
           %li
             = link_to(t('layouts.header.shop'),
               main_app.catalog_index_path, class: 'nav-link')
