@@ -19,8 +19,8 @@ CarrierWave.configure do |config|
     config.fog_directory = 'sybse'
     config.fog_credentials = {
       provider: 'AWS',
-      aws_access_key_id: ENV['AWS_ID'],
-      aws_secret_access_key: ENV['AWS_KEY'],
+      aws_access_key_id: Figaro.env.aws_id,
+      aws_secret_access_key: Figaro.env.aws_key,
       region: 'eu-central-1',
       endpoint: 'https://s3.eu-central-1.amazonaws.com'
     }
