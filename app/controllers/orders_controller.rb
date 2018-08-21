@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
 
   def index
     present OrdersPresenter.new(params: order_params)
+    return unless @orders
     filter = order_params[:filter]
     @orders = @orders.order('id desc')
     @orders = @orders.where(state: filter) if filter

@@ -1,7 +1,7 @@
 %main.container.general-main-wrap
   %h1.mt-0.mb-25= t('.my_orders')
   = render('orders_filters')
-  - if @orders.empty?
+  - if @orders.blank?
     .container.text-center.mt-100
       %h2= t('.no_orders')
   - else
