@@ -6,7 +6,7 @@ describe ImageUploader do
 
   around do |example|
     ImageUploader.enable_processing = true
-    File.open(File.join(Rails.root, 'spec', 'fixtures', '16.png')) do |file|
+    File.open(File.join(Rails.root, 'spec', 'fixtures', '31.jpg')) do |file|
       uploader.store!(file)
     end
 
@@ -29,6 +29,6 @@ describe ImageUploader do
   end
 
   it 'has correct format' do
-    expect(uploader).to be_format('png')
+    expect(uploader).to be_format('jpeg')
   end
 end
