@@ -1,10 +1,7 @@
-require 'database_cleaner'
 require 'factory_bot_rails'
 require 'ecomm/factories'
 
 include FactoryBot::Syntax::Methods
-
-DatabaseCleaner.clean_with(:truncation)
 
 numbers = { users: 5, categories: 4, authors: 20, books: 50 }
 
