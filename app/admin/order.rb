@@ -39,11 +39,11 @@ ActiveAdmin.register Ecomm::Order, as: 'Order' do
       row(t('.actions')) { |order| aasm_events_select(order) }
       table_for(order.line_items) do |t|
         column(t('active_admin.resource.index.book.image')) do |item|
-          image_tag(item.book.main_image.url(:thumb))
+          image_tag(item.product.main_image.url(:thumb))
         end
-        t.column(t('ecomm.carts.product')) { |item| item.book.title }
+        t.column(t('ecomm.carts.product')) { |item| item.product.title }
         t.column(t('ecomm.carts.price')) do |item|
-          number_to_currency item.book.price
+          number_to_currency item.product.price
         end
         t.column(t('ecomm.carts.quantity'), &:quantity)
         t.column(t('ecomm.carts.subtotal')) do |item|
