@@ -12,8 +12,8 @@ feature 'Admin new Book page' do
     given(:extra_params) do
       {
         add_images: true,
-        main_image: '16.png',
-        images: '16.png',
+        main_image: '31',
+        images: %w(16 24 32),
         category: 'Photo',
         author_ids: [1, 3],
         material_ids: [2, 4]

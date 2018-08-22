@@ -37,7 +37,9 @@ feature 'Admin Books index page' do
     end
 
     scenario "click on 'view' link redirects to 'show book' page" do
-      create(:book_with_authors_and_materials, title: 'Dwarf')
+      create(:book_with_authors_and_materials,
+             title: 'Dwarf',
+             images: load_images(%w(16 24 32)))
       visit admin_books_path
       click_link(t('active_admin.view'))
       expect(page).to have_content('Dwarf')

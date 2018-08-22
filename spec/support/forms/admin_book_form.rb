@@ -1,12 +1,14 @@
 class AdminBookForm
   include Capybara::DSL
 
+  def image_path(name)
+    "#{Rails.root}/spec/fixtures/#{name}.jpg"
+  end
+
   def fill_in_with(params)
     if params[:add_images]
-      attach_file('Main image',
-                  "#{Rails.root}/spec/fixtures/" + params[:main_image])
-      attach_file('Images',
-                  "#{Rails.root}/spec/fixtures/" + params[:images])
+      attach_file('Main image', image_path(params[:main_image]))
+      attach_file('Images', params[:images].map { |name| image_path(name) })
     end
     select params[:category], from: 'book_category_id'
     fill_in('book_title', with: params[:title])

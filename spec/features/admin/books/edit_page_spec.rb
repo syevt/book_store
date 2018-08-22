@@ -22,7 +22,7 @@ feature 'Admin edit Book page' do
       create_list(:category, 3)
       create_list(:author, 4)
       create_list(:material, 6)
-      create(:book_with_authors_and_materials)
+      create(:book_with_authors_and_materials, images: load_images(%w(16 24 32)))
       visit admin_books_path
       click_link(t('active_admin.edit'))
     end

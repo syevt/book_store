@@ -8,11 +8,7 @@ FactoryBot.define do
     width 6
     thickness 1
     price 1.0
-    main_image do
-      Rack::Test::UploadedFile.new(
-        File.join(Rails.root, 'spec', 'fixtures', '16.png'), 'image/png'
-      )
-    end
+    main_image { load_images('31') }
 
     factory :book_with_authors_and_materials do
       transient do
