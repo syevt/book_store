@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/evtik/ecomm.git
-  revision: 139cdf1e5e8f690f0762a4b0bf9029674db5c16e
+  revision: 0d18803a51c68bd0278424a6ec807a4bcd08fc3d
   branch: develop
   specs:
     ecomm (0.1.0)
