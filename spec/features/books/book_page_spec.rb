@@ -113,7 +113,22 @@ feature 'Book page' do
   end
 
   context 'with reviews' do
-    given!(:book) { create(:book_with_reviews) }
+    given(:user) do
+      user = build(:user, email: 'yyy@gmail.com')
+      user.addresses << build(:address, first_name: 'John', last_name: 'Doe')
+      user.save
+      user
+    end
+
+    given(:another_user) { create(:user, email: 'zzz@gmail.com') }
+
+    given!(:book) do
+      book = build(:book_with_authors_and_materials)
+      book.reviews << [build(:review, user: user),
+                       build(:review, user: another_user)]
+      book.save
+      book
+    end
 
     background do
       visit book_path(book)
@@ -126,14 +141,22 @@ feature 'Book page' do
     end
 
     scenario "has user's first name's first letter in circle image" do
-      first_name = book.reviews.first.user.addresses.first.first_name
-      expect(page).to have_css('.img-circle', text: first_name.first)
+      expect(page).to have_css('.img-circle', text: 'J')
+      expect(page).not_to have_css('.img-circle', text: 'y')
     end
 
-    scenario "has users's name in review header", use_selenium: true do
-      name = book.reviews.first.user.addresses.first.first_name + ' ' +
-             book.reviews.first.user.addresses.first.last_name
-      expect(page).to have_css('h4.media-heading', text: name)
+    scenario "has user's email's first letter when no first name exists" do
+      expect(page).to have_css('.img-circle', text: 'z')
+    end
+
+    scenario "has users's first and last name in review header",
+             use_selenium: true do
+      expect(page).to have_css('h4.media-heading', text: 'John Doe')
+    end
+
+    scenario "has users's masked email in review header when names not given",
+             use_selenium: true do
+      expect(page).to have_css('h4.media-heading', text: 'z*******@gmail.com')
     end
 
     scenario 'has markdown in reviews' do

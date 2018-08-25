@@ -1,4 +1,18 @@
 describe ReviewsPresenter do
+  describe '#reviewer_name' do
+    let(:user) { build(:user, email: 'my@email.com') }
+
+    it 'returns masked user email when no names exist' do
+      expect(subject.reviewer_name(user)).to eq('m*******@email.com')
+    end
+
+    it "returns user's first and last names if they exist" do
+      user.billing_address = build(:address, first_name: 'Phil',
+                                             last_name: 'Ivey')
+      expect(subject.reviewer_name(user)).to eq('Phil Ivey')
+    end
+  end
+
   describe '#verified_reviewer?' do
     let!(:book) { create(:book_with_reviews, reviews_count: 1) }
 
