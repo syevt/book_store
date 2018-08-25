@@ -1,8 +1,8 @@
-%h3.in-gold-500.mb-25= "#{t('.reviews')} (#{@book.approved_reviews.length})"
+%h3.in-gold-500.mb-25= "#{t('.reviews')} (#{@book.approved_reviews.size})"
 .row
   .col-xs-12.col-sm-8
     %ul.media-list
-      - @book.approved_reviews.sort_by(&:created_at).reverse.each do |review|
+      - @book.approved_reviews.each do |review|
         %li.media.divider-lg
           .media-left
             %span.img-circle.logo-size.logo-empty.media-object= |

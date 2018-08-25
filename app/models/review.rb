@@ -4,7 +4,12 @@ class Review < ApplicationRecord
   belongs_to(:book)
   belongs_to(:user)
 
-  scope(:approved, -> { where(state: 'approved') })
+  scope(:approved,
+        lambda {
+          where(state: 'approved')
+         .order(created_at: :desc)
+         .includes(user: [:billing_address])
+        })
 
   aasm(column: 'state', whiny_transitions: false) do
     state(:unprocessed, initial: true)
