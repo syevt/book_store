@@ -28,7 +28,7 @@ feature 'Admin edit Book page' do
     end
 
     scenario 'with valid book data shows success message' do
-      book_attributes = attributes_for(:book).merge(extra_params)
+      book_attributes = attributes_for(:loose_book).merge(extra_params)
       form.fill_in_with(book_attributes).submit('Update')
       expect(page).to have_content(aa_tr(:book, :update))
     end
