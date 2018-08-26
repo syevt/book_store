@@ -73,7 +73,7 @@ describe AddressesController do
             }
           }
 
-          it 'creates new address to database' do
+          it 'creates new address in database' do
             expect {
               put :update, params: valid_data
             }.to change(Ecomm::Address, :count).by(1)

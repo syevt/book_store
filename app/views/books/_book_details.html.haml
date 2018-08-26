@@ -1,5 +1,5 @@
 %main.container
-  = link_to((session[:back_to_catalog] || catalog_index_path),
+  = link_to((session[:back_to_results] || catalog_index_path),
     class: 'general-back-link') do
     %i.fa.fa-long-arrow-left.mr-15
     = t('.back_to_results')
