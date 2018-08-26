@@ -12,6 +12,28 @@ feature 'Book page' do
     end
   end
 
+  context "'back to results' link", use_selenium: true do
+    background do
+      create_list(:book_with_authors_and_materials, 4)
+    end
+
+    scenario 'returns to home page' do
+      visit root_path
+      first('.fa-eye.thumb-icon').click
+      click_button(t('books.book_details.add_to_cart'))
+      click_link(t('books.book_details.back_to_results'))
+      expect(page).to have_text(t('home.index.welcome'))
+    end
+
+    scenario 'returns to catalog page' do
+      visit catalog_index_path
+      first('.fa-eye.thumb-icon').click
+      click_button(t('books.book_details.add_to_cart'))
+      click_link(t('books.book_details.back_to_results'))
+      expect(page).to have_text(t('catalog.index.caption'))
+    end
+  end
+
   context 'without reviews' do
     given!(:book) do
       create(:book_with_authors_and_materials,
