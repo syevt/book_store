@@ -6,6 +6,8 @@ class Book < ApplicationRecord
   has_many(:reviews, dependent: :destroy)
   has_many(:approved_reviews, -> { approved }, class_name: 'Review')
 
+  before_destroy -> { throw :abort if line_items.exists? }
+
   mount_uploader(:main_image, ImageUploader)
   mount_uploaders(:images, ImageUploader)
 end

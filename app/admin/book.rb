@@ -107,5 +107,27 @@ ActiveAdmin.register Book do
       flash.notice = aa_tr(:book, :update)
       redirect_to(resource_path)
     end
+
+    def destroy
+      success = Book.find(params[:id]).destroy
+      redirect_to(after_destroy_path(success), flash_destroyed(success))
+    end
+
+    private
+
+    def after_destroy_path(success)
+      action = Rails.application.routes
+                    .recognize_path(request.referrer)[:action]
+      action == 'show' && !success ? resource_path(resource) : collection_path
+    end
+
+    def flash_destroyed(success)
+      prefix = 'active_admin.books.'
+      if success
+        { notice: t("#{prefix}destroyed") }
+      else
+        { alert: t("#{prefix}cannot_destroy") }
+      end
+    end
   end
 end

@@ -6,13 +6,10 @@ feature 'Admin Books index page' do
   include_examples 'not authorized', :admin_books_path
 
   context 'with admin' do
-    given(:admin_user) { create(:admin_user) }
     given(:book_label) { t('activerecord.models.book.one') }
     given(:books_label) { t('activerecord.models.book.other') }
 
-    background do
-      login_as(admin_user, scope: :user)
-    end
+    background { login_as(create(:admin_user), scope: :user) }
 
     scenario 'shows admin books index' do
       visit admin_books_path
@@ -59,14 +56,23 @@ feature 'Admin Books index page' do
       expect(page).to have_field('book_year')
     end
 
-    scenario "click on 'delete' removes book from list", use_selenium: true do
-      create(:book_with_authors_and_materials)
-      visit admin_books_path
-      click_link(t('active_admin.delete'))
-      accept_alert
-      expect(page).to have_content(
-        t('active_admin.blank_slate.content', resource_name: books_label)
-      )
+    context "click on 'delete'", use_selenium: true do
+      given!(:book) { create(:book_with_authors_and_materials) }
+
+      scenario 'removes book from list' do
+        visit admin_books_path
+        click_link(t('active_admin.delete'))
+        accept_alert
+        expect(page).to have_text(t('active_admin.books.destroyed'))
+      end
+
+      scenario 'does not remove book from list if it has line items' do
+        create(:line_item, product: book)
+        visit admin_books_path
+        click_link(t('active_admin.delete'))
+        accept_alert
+        expect(page).to have_text(t('active_admin.books.cannot_destroy'))
+      end
     end
 
     context 'batch actions', use_selenium: true do

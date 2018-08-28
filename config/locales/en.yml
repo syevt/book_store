@@ -124,8 +124,11 @@ en:
     books:
       batch_action:
         deleted_message: 'Selected books have been successfully deleted!'
+      cannot_destroy: |
+        The book cannot be deleted as it is already present in orders!
       create:
         created_message: 'The book has been successfully created!'
+      destroyed: 'The book has been successfully deleted!'
       update:
         updated_message: 'The book has been successfully updated!'
     book_categories:
