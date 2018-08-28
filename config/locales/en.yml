@@ -113,7 +113,18 @@ en:
         cancel: 'Cancel'
         approve: 'Approve'
         reject: 'Reject'
+
+    batch_actions:
+      partially_destroyed:
+        one: |
+          One of %{count} %{plural_model} has not been deleted due to its
+          presence in orders!
+        other: |
+          %{rejected} of %{count} %{plural_model} have not been deleted due to
+          their presence in orders!
+
     not_authorized: 'You are not authorized to access this resource!'
+
     authors:
       batch_action:
         deleted_message: 'Selected authors have been successfully deleted!'

@@ -7,8 +7,9 @@ feature 'Admin Materials index page' do
 
   context 'with admin' do
     given(:admin_user) { create(:admin_user) }
-    given(:material_label) { t('activerecord.models.material.one') }
-    given(:materials_label) { t('activerecord.models.material.other') }
+    given(:ar_prefix) { 'activerecord.models.material.' }
+    given(:material_label) { t("#{ar_prefix}one") }
+    given(:materials_label) { t("#{ar_prefix}other") }
 
     background do
       login_as(admin_user, scope: :user)
@@ -70,13 +71,15 @@ feature 'Admin Materials index page' do
     end
 
     context 'batch actions', use_selenium: true do
+      given(:batch_prefix) { 'active_admin.batch_actions.' }
+
       scenario 'delete all' do
         create_list(:material, 4)
         visit admin_materials_path
         check_batch_all
         click_batch_delete
         expect(page).to have_content(
-          batch_destroyed_label(4, materials_label.downcase)
+          batch_destroyed_label(count: 4, model: materials_label.downcase)
         )
         expect(page).to have_content(
           t('active_admin.blank_slate.content', resource_name: materials_label)
@@ -89,7 +92,7 @@ feature 'Admin Materials index page' do
         check_batch_items(1, 5)
         click_batch_delete
         expect(page).to have_content(
-          batch_destroyed_label(2, materials_label.downcase)
+          batch_destroyed_label(count: 2, model: materials_label.downcase)
         )
         expect(page).to have_content('Lace', count: 4)
       end

@@ -7,10 +7,9 @@ feature 'Admin Categories index page' do
 
   context 'with admin' do
     given(:admin_user) { create(:admin_user) }
-    given(:category_label) { 'Book ' + t('activerecord.models.category.one') }
-    given(:categories_label) do
-      'Book ' + t('activerecord.models.category.other')
-    end
+    given(:ar_prefix) { 'activerecord.models.category.' }
+    given(:category_label) { 'Book ' + t("#{ar_prefix}one") }
+    given(:categories_label) { 'Book ' + t("#{ar_prefix}other") }
 
     background do
       login_as(admin_user, scope: :user)
@@ -71,13 +70,15 @@ feature 'Admin Categories index page' do
     end
 
     context 'batch actions', use_selenium: true do
+      given(:batch_prefix) { 'active_admin.batch_actions.' }
+
       scenario 'delete all' do
         create_list(:category, 5)
         visit admin_book_categories_path
         check_batch_all
         click_batch_delete
         expect(page).to have_content(
-          batch_destroyed_label(5, categories_label.downcase)
+          batch_destroyed_label(count: 5, model: categories_label.downcase)
         )
         expect(page).to have_content(
           t('active_admin.blank_slate.content', resource_name: categories_label)
@@ -90,7 +91,7 @@ feature 'Admin Categories index page' do
         check_batch_items(1, 3)
         click_batch_delete
         expect(page).to have_content(
-          batch_destroyed_label(2, categories_label.downcase)
+          batch_destroyed_label(count: 2, model: categories_label.downcase)
         )
         expect(page).to have_content('Sports', count: 2)
       end

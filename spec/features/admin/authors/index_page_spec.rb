@@ -7,8 +7,9 @@ feature 'Admin Authors index page' do
 
   context 'with admin' do
     given(:admin_user) { create(:admin_user) }
-    given(:author_label) { t('activerecord.models.author.one') }
-    given(:authors_label) { t('activerecord.models.author.other') }
+    given(:ar_prefix) { 'activerecord.models.author.' }
+    given(:author_label) { t("#{ar_prefix}one") }
+    given(:authors_label) { t("#{ar_prefix}other") }
 
     background do
       login_as(admin_user, scope: :user)
@@ -68,13 +69,15 @@ feature 'Admin Authors index page' do
     end
 
     context 'batch actions', use_selenium: true do
+      given(:batch_prefix) { 'active_admin.batch_actions.' }
+
       scenario 'delete all' do
         create_list(:author, 7)
         visit admin_authors_path
         check_batch_all
         click_batch_delete
         expect(page).to have_content(
-          batch_destroyed_label(7, authors_label.downcase)
+          batch_destroyed_label(count: 7, model: authors_label.downcase)
         )
         expect(page).to have_content(
           t('active_admin.blank_slate.content', resource_name: authors_label)
@@ -87,7 +90,7 @@ feature 'Admin Authors index page' do
         check_batch_items(2, 4)
         click_batch_delete
         expect(page).to have_content(
-          batch_destroyed_label(2, authors_label.downcase)
+          batch_destroyed_label(count: 2, model: authors_label.downcase)
         )
         expect(page).to have_content('Swail', count: 3)
       end

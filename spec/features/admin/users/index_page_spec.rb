@@ -7,8 +7,9 @@ feature 'Admin User index page' do
 
   context 'with admin' do
     given(:admin_user) { create(:admin_user) }
-    given(:user_label) { t('activerecord.models.user.one') }
-    given(:users_label) { t('activerecord.models.user.other') }
+    given(:ar_prefix) { 'activerecord.models.user.' }
+    given(:user_label) { t("#{ar_prefix}one") }
+    given(:users_label) { t("#{ar_prefix}other") }
 
     background do
       login_as(admin_user, scope: :user)
@@ -66,6 +67,8 @@ feature 'Admin User index page' do
     end
 
     context 'batch actions', use_selenium: true do
+      given(:batch_prefix) { 'active_admin.batch_actions.' }
+
       scenario 'delete all' do
         create_list(:user, 4)
         visit admin_users_path
@@ -81,7 +84,7 @@ feature 'Admin User index page' do
         check_batch_items(2, 3)
         click_batch_delete
         expect(page).to have_content(
-          batch_destroyed_label(2, users_label.downcase)
+          batch_destroyed_label(count: 2, model: users_label.downcase)
         )
         expect(page).to have_content('@example.com', count: 7)
       end

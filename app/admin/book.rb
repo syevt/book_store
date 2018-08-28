@@ -3,6 +3,16 @@ ActiveAdmin.register Book do
                 :width, :thickness, :price, :main_image,
                 author_ids: [], material_ids: [], images: [])
 
+  batch_confirmation = I18n.t(
+    'active_admin.batch_actions.delete_confirmation',
+    plural_model: I18n.t('activerecord.models.book.other').downcase
+  )
+
+  batch_action :destroy, confirm: batch_confirmation do |ids|
+    rejected = Book.where(id: ids).destroy_all.map(&:destroyed?).count(false)
+    redirect_to collection_path, batch_destroyed_flash(ids.size, rejected)
+  end
+
   index do
     selectable_column
     column(t('.book.image')) do |book|
@@ -119,6 +129,41 @@ ActiveAdmin.register Book do
       action = Rails.application.routes
                     .recognize_path(request.referrer)[:action]
       action == 'show' && !success ? resource_path(resource) : collection_path
+    end
+
+    def batch_destroyed_flash(count, rejected)
+      set_translations
+      if rejected.zero?
+        { notice: fully_destoyed(count) }
+      else
+        { alert: partially_destroyed(count, rejected) }
+      end
+    end
+
+    def set_translations
+      ar_prefix = 'activerecord.models.book.'
+      @one = t("#{ar_prefix}one").downcase
+      @other = t("#{ar_prefix}other").downcase
+      batch_prefix = 'active_admin.batch_actions.'
+      @fully = "#{batch_prefix}succesfully_destroyed."
+      @partially = "#{batch_prefix}partially_destroyed."
+    end
+
+    def fully_destoyed(count)
+      if count == 1
+        t("#{@fully}one", model: @one)
+      else
+        t("#{@fully}other", count: count, plural_model: @other)
+      end
+    end
+
+    def partially_destroyed(count, rejected)
+      tr_hash = { count: count, plural_model: @other }
+      if rejected == 1
+        t("#{@partially}one", tr_hash)
+      else
+        t("#{@partially}other", tr_hash.merge(rejected: rejected))
+      end
     end
 
     def flash_destroyed(success)

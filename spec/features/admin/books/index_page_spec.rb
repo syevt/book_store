@@ -6,8 +6,9 @@ feature 'Admin Books index page' do
   include_examples 'not authorized', :admin_books_path
 
   context 'with admin' do
-    given(:book_label) { t('activerecord.models.book.one') }
-    given(:books_label) { t('activerecord.models.book.other') }
+    given(:ar_prefix) { 'activerecord.models.book.' }
+    given(:book_label) { t("#{ar_prefix}one") }
+    given(:books_label) { t("#{ar_prefix}other") }
 
     background { login_as(create(:admin_user), scope: :user) }
 
@@ -76,28 +77,88 @@ feature 'Admin Books index page' do
     end
 
     context 'batch actions', use_selenium: true do
-      scenario 'delete all' do
-        create_list(:book_with_authors_and_materials, 3)
-        visit admin_books_path
-        check_batch_all
-        click_batch_delete
-        expect(page).to have_content(
-          batch_destroyed_label(3, books_label.downcase)
-        )
-        expect(page).to have_content(
-          t('active_admin.blank_slate.content', resource_name: books_label)
-        )
+      given(:batch_prefix) { 'active_admin.batch_actions.' }
+
+      context 'delete all' do
+        scenario 'with no books present in orders' do
+          create_list(:book_with_authors_and_materials, 5)
+          visit admin_books_path
+          check_batch_all
+          click_batch_delete
+          expect(page).to have_content(
+            batch_destroyed_label(count: 5, model: books_label.downcase)
+          )
+        end
+
+        scenario 'with one book present in orders' do
+          books = create_list(:book_with_authors_and_materials, 5)
+          create(:line_item, product: books.first)
+          visit admin_books_path
+          check_batch_all
+          click_batch_delete
+          expect(page).to have_content(
+            batch_destroyed_label(count: 5, rejected: 1,
+                                  model: books_label.downcase)
+          )
+        end
+
+        scenario 'with more than 1 book present in orders' do
+          books = create_list(:book_with_authors_and_materials, 5)
+          books[1..3].each { |book| create(:line_item, product: book) }
+          visit admin_books_path
+          check_batch_all
+          click_batch_delete
+          expect(page).to have_content(
+            batch_destroyed_label(count: 5, rejected: 3,
+                                  model: books_label.downcase)
+          )
+        end
       end
 
-      scenario 'delete selected' do
-        create_list(:book_with_authors_and_materials, 4, title: 'Troy')
-        visit admin_books_path
-        check_batch_items(1, 3)
-        click_batch_delete
-        expect(page).to have_content(
-          batch_destroyed_label(2, books_label.downcase)
-        )
-        expect(page).to have_content('Troy', count: 2)
+      context 'delete selected' do
+        scenario 'exactly one book' do
+          create_list(:book_with_authors_and_materials, 5)
+          visit admin_books_path
+          check_batch_items(2)
+          click_batch_delete
+          expect(page).to have_content(
+            batch_destroyed_label(count: 1, model: book_label.downcase)
+          )
+        end
+
+        scenario 'with no books present in orders' do
+          create_list(:book_with_authors_and_materials, 5)
+          visit admin_books_path
+          check_batch_items(2, 5)
+          click_batch_delete
+          expect(page).to have_content(
+            batch_destroyed_label(count: 2, model: books_label.downcase)
+          )
+        end
+
+        scenario 'with one book present in orders' do
+          books = create_list(:book_with_authors_and_materials, 5)
+          create(:line_item, product: books[3])
+          visit admin_books_path
+          check_batch_items(1, 2, 4)
+          click_batch_delete
+          expect(page).to have_content(
+            batch_destroyed_label(count: 3, rejected: 1,
+                                  model: books_label.downcase)
+          )
+        end
+
+        scenario 'with more than 1 book present in orders' do
+          books = create_list(:book_with_authors_and_materials, 5)
+          books[3..4].each { |book| create(:line_item, product: book) }
+          visit admin_books_path
+          check_batch_items(3, 4, 5)
+          click_batch_delete
+          expect(page).to have_content(
+            batch_destroyed_label(count: 3, rejected: 2,
+                                  model: books_label.downcase)
+          )
+        end
       end
     end
   end
