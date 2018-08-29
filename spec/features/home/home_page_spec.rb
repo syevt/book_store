@@ -179,5 +179,23 @@ feature 'Home page' do
                     text: t('layouts.my_account.admin_panel')
       )
     end
+
+    scenario 'has no orders and settings links in header' do
+      expect(page).not_to have_css(
+        'header a', visible: false, text: t('layouts.my_account.orders')
+      )
+      expect(page).not_to have_css(
+        'header a', visible: false, text: t('layouts.my_account.settings')
+      )
+    end
+
+    scenario 'has no orders and settings links in footer' do
+      expect(page).not_to have_css(
+        'footer a', text: t('layouts.my_account.orders')
+      )
+      expect(page).not_to have_css(
+        'footer a', text: t('layouts.my_account.settings')
+      )
+    end
   end
 end
