@@ -11,7 +11,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   def default_url
     'https://s3.eu-central-1.amazonaws.com/sybse/images/' +
-      [version_name, 'default.png'].compact.join('_')
+      [version_name, 'default.jpg'].compact.join('_')
   end
 
   process(resize_to_fit: [550, 550])
