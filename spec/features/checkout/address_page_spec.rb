@@ -21,40 +21,43 @@ feature 'Checkout address page' do
     end
 
     context 'with items in cart' do
+      given(:user) { create(:user) }
+
       around do |example|
-        login_as(create(:user), scope: :user)
+        login_as(user, scope: :user)
         create_list(:book_with_authors_and_materials, 3)
         page.set_rack_session(
           cart: { 1 => 1, 2 => 2, 3 => 3 },
           discount: 10
         )
-        visit ecomm.checkout_address_path
         example.run
         page.set_rack_session(cart: nil, items_total: nil, order_subtotal: nil)
       end
 
-      scenario 'has 1 as current checkout progress step' do
-        expect(page).not_to have_css('li.step.done')
-        expect(page).to have_css('li.step.active span.step-number', text: '1')
-      end
-
-      scenario 'has addresses headers' do
-        expect(page).to have_css(
-          'h3.general-subtitle',
-          text: t('ecomm.checkout.address.billing_address')
-        )
-        expect(page).to have_css(
-          'h3.general-subtitle',
-          text: t('ecomm.checkout.address.shipping_address')
-        )
-      end
-
-      scenario 'has correct totals' do
-        expect(page).to have_css('p.font-16', text: '6.00')
-        expect(page).to have_css('p.font-16', text: '5.40')
-      end
-
       context 'filling in addresses' do
+        background { visit ecomm.checkout_address_path }
+
+        scenario 'has 1 as current checkout progress step' do
+          expect(page).not_to have_css('li.step.done')
+          expect(page).to have_css('li.step.active span.step-number', text: '1')
+        end
+
+        scenario 'has addresses headers' do
+          expect(page).to have_css(
+            'h3.general-subtitle',
+            text: t('ecomm.checkout.address.billing_address')
+          )
+          expect(page).to have_css(
+            'h3.general-subtitle',
+            text: t('ecomm.checkout.address.shipping_address')
+          )
+        end
+
+        scenario 'has correct totals' do
+          expect(page).to have_css('p.font-16', text: '6.00')
+          expect(page).to have_css('p.font-16', text: '5.40')
+        end
+
         context 'billing' do
           given(:i18n_prefix) { 'activemodel.errors.models.address.attributes' }
           given(:billing_address_form) do
@@ -135,6 +138,44 @@ feature 'Checkout address page' do
               expect(page).to have_content(t('errors.messages.invalid'))
               expect(page).to have_content(t("#{i18n_prefix}.city.blank"))
             end
+          end
+        end
+      end
+
+      context 'with user already having addresses', use_selenium: true do
+        background do
+          create(:address, customer: user)
+          create(:address, customer: user, address_type: 'shipping',
+                           country: 'France')
+          visit ecomm.checkout_address_path
+        end
+
+        scenario 'has correct countries selected', use_selenium: false do
+          expect(find('#order_billing_country').value).to eq('Italy')
+          expect(find('#order_shipping_country').value).to eq('France')
+        end
+
+        context 'selecting another billing address country' do
+          background { select('Austria', from: 'order[billing][country]') }
+
+          scenario 'changes billing address country code' do
+            expect(find('#billing-phone').value).to eq('+43')
+          end
+
+          scenario 'does not change shipping address country code' do
+            expect(find('#shipping-phone').value).not_to eq('+43')
+          end
+        end
+
+        context 'selecting another shipping address country' do
+          background { select('Australia', from: 'order[shipping][country]') }
+
+          scenario 'changes shipping address country code' do
+            expect(find('#shipping-phone').value).to eq('+61')
+          end
+
+          scenario 'does not change billing address country code' do
+            expect(find('#billing-phone').value).not_to eq('+61')
           end
         end
       end
