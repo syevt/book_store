@@ -5,15 +5,9 @@
     - 5.times do |index|
       %i.fa.fa-2x.fa-star.rate-star.review-star{id: "star-#{index + 1}",
         class: ((@review.score < index + 1) ? 'rate-empty' : 'star-checked' )}
-    = form_for(@review, url: book_reviews_path) do |f|
-      = f.hidden_field(:book_id)
-      = f.hidden_field(:score)
-      .form-group{class: ('has-error' if @review.errors[:title].any?)}
-        = f.label(:title, t('.title'), class: 'control-label font-weight-light')
-        = f.text_field(:title, class: 'form-control')
-        %span.help-block= @review.errors[:title].first
-      .form-group{class: ('has-error' if @review.errors[:body].any?)}
-        = f.label(:body, t('.review'), class: 'control-label font-weight-light')
-        = f.text_area(:body, rows: '5', class: 'form-control')
-        %span.help-block= @review.errors[:body].first
-      = f.submit(t('.post'), class: 'btn btn-default pull-right')
+    = simple_form_for(@review, url: book_reviews_path) do |f|
+      = f.input_field(:book_id, as: :hidden)
+      = f.input_field(:score, as: :hidden)
+      = f.input(:title)
+      = f.input(:body, as: :text, input_html: { rows: 5 })
+      = f.button(:submit, t('.post'), class: 'btn-default pull-right')

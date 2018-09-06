@@ -1,7 +1,5 @@
-GIT
-  remote: https://github.com/evtik/ecomm.git
-  revision: c5b49665678273874dba8c1d30a96273eab36f63
-  branch: develop
+PATH
+  remote: ../ecomm
   specs:
     ecomm (0.1.0)
       bootstrap-sass
@@ -17,6 +15,7 @@ GIT
       rails-i18n
       rectify
       sass-rails
+      simple_form
       wisper
 
 GEM
@@ -386,6 +385,9 @@ GEM
       rubyzip (~> 1.2)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
+    simple_form (4.0.1)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
     simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -480,6 +482,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   selenium-webdriver
   shoulda-matchers (~> 3.1)
+  simple_form
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)

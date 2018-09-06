@@ -24,7 +24,8 @@ gem 'carrierwave', '~> 1.0'
 gem 'devise'
 gem 'draper'
 gem 'draper-cancancan'
-gem 'ecomm', github: 'evtik/ecomm', branch: 'develop'
+# gem 'ecomm', github: 'evtik/ecomm', branch: 'develop'
+gem 'ecomm', path: '~/projects/ecomm'
 gem 'factory_bot_rails'
 gem 'faker'
 gem 'figaro'
@@ -37,6 +38,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'rectify'
 gem 'redcarpet'
+gem 'simple_form'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
