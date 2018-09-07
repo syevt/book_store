@@ -14,7 +14,7 @@ feature 'User address settings page' do
 
     def find_error_span(address_type, field)
       xpath = "//input[@name='address[#{address_type}][#{field}]']/"\
-              "../../following-sibling::span[@class='help-block'][1]"
+              "../following-sibling::span[@class='help-block'][1]"
       find(:xpath, xpath)
     end
 

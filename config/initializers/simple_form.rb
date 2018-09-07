@@ -64,17 +64,13 @@ SimpleForm.setup do |config|
     # b.use :full_error, wrap_with: { tag: :span, class: :error }
   end
 
-  config.wrappers :bse_default, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+  config.wrappers :bse_default, tag: 'div', class: 'form-group',
+                                  error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label, class: 'form-control-label font-weight-light'
-
-    b.wrapper tag: 'div' do |ba|
-      ba.wrapper tag: 'div', class: 'input-group col-sm-12' do |append|
-        append.use :input, class: 'form-control'
-      end
-      ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-    end
+    b.use :input, class: 'form-control'
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
   end
 
   # The default wrapper to be used by the FormBuilder.
