@@ -5,18 +5,18 @@ $ ->
 
       $('.img-link').click (e) ->
         e.preventDefault()
-        $('#main-image').attr 'src', @getAttribute 'data-image'
+        $('#main-image').attr('src', @getAttribute('data-image'))
 
       $('.quantity-decrement').click (e) ->
         e.preventDefault()
-        targetInput = $ "##{@getAttribute 'data-target'}"
-        quantity = parseInt targetInput.val()
+        targetInput = $("##{@getAttribute 'data-target'}")
+        quantity = parseInt(targetInput.val())
         targetInput.val(quantity - 1) if quantity > 1
 
       $('.quantity-increment').click (e) ->
         e.preventDefault()
-        targetInput = $ "##{@getAttribute 'data-target'}"
-        quantity = parseInt targetInput.val()
+        targetInput = $("##{@getAttribute 'data-target'}")
+        quantity = parseInt(targetInput.val())
         targetInput.val(quantity + 1)
 
       $('#book-description').trunk8
@@ -36,27 +36,27 @@ $ ->
 
       $('.review-star').hover ->
         for i in [1..5]
-          $("#star-#{i}").addClass 'rate-empty'
-        index = starIndex @
+          $("#star-#{i}").addClass('rate-empty')
+        index = starIndex(@)
         for i in [1..index]
-          $("#star-#{i}").removeClass 'rate-empty'
+          $("#star-#{i}").removeClass('rate-empty')
       , ->
         for i in [1..5]
           starElement = $("#star-#{i}")
-          if starElement.hasClass 'star-checked'
-            starElement.removeClass 'rate-empty'
+          if starElement.hasClass('star-checked')
+            starElement.removeClass('rate-empty')
           else
-            starElement.addClass 'rate-empty'
+            starElement.addClass('rate-empty')
 
       $('.review-star').click ->
-        index = starIndex @
+        index = starIndex(@)
         for i in [1..index]
-          $("#star-#{i}").addClass 'star-checked'
+          $("#star-#{i}").addClass('star-checked')
         if index < 5
           for i in [(index + 1)..5]
             $("#star-#{i}").removeClass('star-checked').addClass('rate-empty')
-        $('#review_score').val index
+        $('#review_score').val(index)
 
-      starIndex = (element) -> parseInt element.id.split('-')[1]
+      starIndex = (element) -> parseInt(element.id.split('-')[1])
 
   bseBooksModule.init()
