@@ -4,17 +4,15 @@ $ ->
       return unless $('#settings').length > 0
 
       $('.country-select').change ->
-        target = @getAttribute 'data-target'
+        target = @getAttribute('data-target')
         targetInput = $("##{target}")[0]
         type = target.split('-')[0]
         countryCode = $("option.#{type}")[@selectedIndex]
-                        .getAttribute 'data-country-code'
+                        .getAttribute('data-country-code')
         targetInput.value = '+' + countryCode
 
       $('#remove-account-checkbox').change ->
-        if @checked
-          $('#remove-account').removeClass 'disabled'
-        else
-          $('#remove-account').addClass 'disabled'
+        $('#remove-account').toggleClass('disabled')
+
 
   bseSettingsModule.init()
