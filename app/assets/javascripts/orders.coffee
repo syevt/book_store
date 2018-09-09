@@ -3,8 +3,6 @@ $ ->
     init: ->
       return unless $('#orders').length > 0
 
-      $('.order-row').click ->
-        window.location = $(@).data 'link'
+      $('.order-row').click -> window.location = @getAttribute('data-link')
 
   bseOrdersModule.init()
-

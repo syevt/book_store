@@ -14,5 +14,4 @@ $ ->
       $('#remove-account-checkbox').change ->
         $('#remove-account').toggleClass('disabled')
 
-
   bseSettingsModule.init()
