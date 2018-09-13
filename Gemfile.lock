@@ -2,6 +2,7 @@ PATH
   remote: ../ecomm
   specs:
     ecomm (0.1.0)
+      attr_extras
       bootstrap-sass
       coffee-rails
       countries
@@ -85,6 +86,7 @@ GEM
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (8.0.0)
+    attr_extras (5.2.0)
     autoprefixer-rails (9.0.0)
       execjs
     axiom-types (0.1.1)

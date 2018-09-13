@@ -16,10 +16,10 @@ class OrdersController < ApplicationController
   def show
     @order = Orders::GetOrderWithAssociated.call(order_params[:id])
     authorize!(:show, @order)
+    present Ecomm::CheckoutPresenter.new
     @billing = @order.billing_address
     @shipping = @order.shipping_address || @billing
     @line_items = @order.line_items
-    @order.credit_card = @order.credit_card.decorate
   end
 
   private
