@@ -2,18 +2,14 @@
 class CreateEcommOrders < ActiveRecord::Migration[5.1]
   def change
     create_table :ecomm_orders do |t|
-      t.integer :customer_id
-      t.integer :shipment_id
-      t.integer :coupon_id
+      t.belongs_to :customer
+      t.belongs_to :shipment
+      t.belongs_to :coupon
       t.string :state
-      t.decimal :subtotal, precision: 6, scale: 2
+      t.monetize :subtotal
 
       t.timestamps
     end
-
-    add_index :ecomm_orders, :customer_id
-    add_index :ecomm_orders, :shipment_id
-    add_index :ecomm_orders, :coupon_id
 
     add_foreign_key :ecomm_orders, :ecomm_shipments, column: :shipment_id
     add_foreign_key :ecomm_orders, :ecomm_coupons, column: :coupon_id
