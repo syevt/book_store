@@ -7,7 +7,7 @@ class CreateBooks < ActiveRecord::Migration[5.1]
       t.integer :width
       t.integer :height
       t.integer :thickness
-      t.decimal :price, precision: 5, scale: 2
+      t.monetize :price
       t.json :main_image
       t.json :images
       t.references :category, foreign_key: true

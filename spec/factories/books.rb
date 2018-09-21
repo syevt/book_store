@@ -8,7 +8,7 @@ FactoryBot.define do
       height 10
       width 6
       thickness 1
-      price 1.0
+      price { Money.new(100) }
       main_image { load_images('31') }
 
       factory :book_with_authors_and_materials do
