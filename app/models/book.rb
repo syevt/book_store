@@ -11,5 +11,5 @@ class Book < ApplicationRecord
   mount_uploader(:main_image, ImageUploader)
   mount_uploaders(:images, ImageUploader)
 
-  monetize :subtotal_cents
+  monetize :price_cents
 end

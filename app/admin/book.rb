@@ -13,18 +13,7 @@ ActiveAdmin.register Book do
     redirect_to collection_path, batch_destroyed_flash(ids.size, rejected)
   end
 
-  index do
-    selectable_column
-    column(t('.book.image')) do |book|
-      image_tag(book.main_image.url(:thumb))
-    end
-    column(:category) { |book| book.category.name.capitalize }
-    column(:title)
-    column(:authors) { |book| book.decorate.authors_short }
-    column(:description) { |book| markdown_truncate(book.description) }
-    column(:price) { |book| number_to_currency(book.price) }
-    actions
-  end
+  ActiveAdmin::RenderActiveAdminBooksIndex.call(self)
 
   show do
     attributes_table do
@@ -133,11 +122,8 @@ ActiveAdmin.register Book do
 
     def batch_destroyed_flash(count, rejected)
       set_translations
-      if rejected.zero?
-        { notice: fully_destoyed(count) }
-      else
-        { alert: partially_destroyed(count, rejected) }
-      end
+      return { notice: fully_destoyed(count) } if rejected.zero?
+      { alert: partially_destroyed(count, rejected) }
     end
 
     def set_translations
@@ -150,29 +136,20 @@ ActiveAdmin.register Book do
     end
 
     def fully_destoyed(count)
-      if count == 1
-        t("#{@fully}one", model: @one)
-      else
-        t("#{@fully}other", count: count, plural_model: @other)
-      end
+      return t("#{@fully}one", model: @one) if count == 1
+      t("#{@fully}other", count: count, plural_model: @other)
     end
 
     def partially_destroyed(count, rejected)
       tr_hash = { count: count, plural_model: @other }
-      if rejected == 1
-        t("#{@partially}one", tr_hash)
-      else
-        t("#{@partially}other", tr_hash.merge(rejected: rejected))
-      end
+      return t("#{@partially}one", tr_hash) if rejected == 1
+      t("#{@partially}other", tr_hash.merge(rejected: rejected))
     end
 
     def flash_destroyed(success)
       prefix = 'active_admin.books.'
-      if success
-        { notice: t("#{prefix}destroyed") }
-      else
-        { alert: t("#{prefix}cannot_destroy") }
-      end
+      return { notice: t("#{prefix}destroyed") } if success
+      { alert: t("#{prefix}cannot_destroy") }
     end
   end
 end
