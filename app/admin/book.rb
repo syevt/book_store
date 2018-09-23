@@ -121,29 +121,20 @@ ActiveAdmin.register Book do
     end
 
     def batch_destroyed_flash(count, rejected)
-      set_translations
-      return { notice: fully_destoyed(count) } if rejected.zero?
+      return { notice: fully_destroyed(count) } if rejected.zero?
       { alert: partially_destroyed(count, rejected) }
     end
 
-    def set_translations
-      ar_prefix = 'activerecord.models.book.'
-      @one = t("#{ar_prefix}one").downcase
-      @other = t("#{ar_prefix}other").downcase
-      batch_prefix = 'active_admin.batch_actions.'
-      @fully = "#{batch_prefix}succesfully_destroyed."
-      @partially = "#{batch_prefix}partially_destroyed."
-    end
-
-    def fully_destoyed(count)
-      return t("#{@fully}one", model: @one) if count == 1
-      t("#{@fully}other", count: count, plural_model: @other)
+    def fully_destroyed(count)
+      model = t("activerecord.models.book.#{count == 1 ? 'one' : 'other'}")
+      t('active_admin.batch_actions.fully_destroyed',
+        count: count, model: model.downcase)
     end
 
     def partially_destroyed(count, rejected)
-      tr_hash = { count: count, plural_model: @other }
-      return t("#{@partially}one", tr_hash) if rejected == 1
-      t("#{@partially}other", tr_hash.merge(rejected: rejected))
+      t('active_admin.batch_actions.partially_destroyed',
+        count: rejected, quantity: count,
+        plural_model: t('activerecord.models.book.other').downcase)
     end
 
     def flash_destroyed(success)

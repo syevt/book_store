@@ -17,31 +17,18 @@ module BatchActionsHelpers
   end
 
   def batch_destroyed_label(count:, rejected: 0, model:)
-    if rejected.zero?
-      fully_destroyed(count, model)
-    else
-      partially_destroyed(count, rejected, model)
-    end
+    return fully_destroyed(count, model) if rejected.zero?
+    partially_destroyed(count, rejected, model)
   end
 
   private
 
   def fully_destroyed(count, model)
-    prefix = "#{batch_prefix}succesfully_destroyed."
-    if count == 1
-      t("#{prefix}one", model: model)
-    else
-      t("#{prefix}other", count: count, plural_model: model)
-    end
+    t('active_admin.batch_actions.fully_destroyed', count: count, model: model)
   end
 
   def partially_destroyed(count, rejected, model)
-    tr_hash = { count: count, plural_model: model }
-    prefix = "#{batch_prefix}partially_destroyed."
-    if rejected == 1
-      t("#{prefix}one", tr_hash)
-    else
-      t("#{prefix}other", tr_hash.merge(rejected: rejected))
-    end
+    t('active_admin.batch_actions.partially_destroyed',
+      count: rejected, quantity: count, plural_model: model)
   end
 end
