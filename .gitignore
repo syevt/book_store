@@ -27,3 +27,4 @@ tags
 tmux*
 .directory
 config/application.yml
+config/database.yml
