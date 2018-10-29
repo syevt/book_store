@@ -2,11 +2,9 @@ feature 'Cart page' do
   context 'empty cart' do
     it 'has cart empty message' do
       visit ecomm.cart_path
-      expect(page).to(
-        have_content(
-          t('ecomm.carts.show.cart_empty_html',
-            href: t('catalog.index.caption'))
-        )
+      expect(page).to have_content(
+        t('ecomm.carts.show.cart_empty_html',
+          href: t('catalog.index.caption'))
       )
     end
   end
@@ -14,7 +12,7 @@ feature 'Cart page' do
   context 'cart with items' do
     around do |example|
       @books = create_list(:book_with_authors_and_materials, 3)
-      page.set_rack_session(cart: { 1 => 1, 2 => 2, 3 => 3 })
+      page.set_rack_session(cart: { '1' => 1, '2' => 2, '3' => 3 })
       visit ecomm.cart_path
       example.run
       page.set_rack_session(cart: nil)
@@ -117,7 +115,7 @@ feature 'Cart page' do
   context 'proceed to checkout' do
     around do |example|
       create_list(:book_with_authors_and_materials, 3)
-      page.set_rack_session(cart: { 1 => 1, 2 => 2, 3 => 3 })
+      page.set_rack_session(cart: { '1' => 1, '2' => 2, '3' => 3 })
       example.run
       page.set_rack_session(cart: nil)
     end
