@@ -15,7 +15,7 @@ class ReviewsPresenter < Rectify::Presenter
 
   def construct_name(user)
     address = user.billing_address
-    address ? address.first_name << ' ' << address.last_name : mask(user.email)
+    address ? "#{address.first_name} #{address.last_name}" : mask(user.email)
   end
 
   def mask(email)
