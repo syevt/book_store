@@ -47,6 +47,7 @@ en:
         caption: 'Cart'
         catalog_caption: 'Catalog'
         cart_empty_html: 'Currently you do not have any items in your cart. You could visit the %{href} to add some.'
+        are_you_sure: 'Are you sure?'
         enter_coupon: 'Enter Your Coupon Code'
         update_cart: 'Update cart'
         order_summary: 'Order Summary'

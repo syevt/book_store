@@ -49,9 +49,12 @@ numbers[:books].times do |i|
 end
 
 [
-  { method: 'Delivery next day!', days_min: 3, days_max: 7, price: 5.00 },
-  { method: 'Pick Up In-Store', days_min: 5, days_max: 20, price: 10.00 },
-  { method: 'Expressit', days_min: 2, days_max: 3, price: 15.00 }
-].each { |shipment| Ecomm::Shipment.create!(shipment) }
+  ['Delivery next day!', 3, 7, 5.00],
+  ['Pick Up In-Store', 5, 20, 10.00],
+  ['Expressit', 2, 3, 15.00]
+].each do |attrs|
+  Ecomm::Shipment.create!(shipping_method: attrs[0], days_min: attrs[1],
+                          days_max: attrs[2], price: attrs[3])
+end
 
 10.times { |i| create(:coupon, code: i.to_s * 6, expires: DateTime.now + 2.year) }

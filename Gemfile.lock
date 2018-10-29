@@ -1,5 +1,7 @@
-PATH
-  remote: ../ecomm
+GIT
+  remote: https://github.com/syevt/ecomm.git
+  revision: 11cf66e8975c200b5856494b80a141bb156df729
+  branch: develop
   specs:
     ecomm (0.1.0)
       activerecord-session_store
@@ -513,4 +515,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.16.1
+   1.16.6
