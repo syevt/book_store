@@ -12,8 +12,8 @@ feature 'Checkout delivery page' do
       create_list(:book_with_authors_and_materials, 3)
       page.set_rack_session(
         cart: { 1 => 1, 2 => 2, 3 => 3 },
-        items_total: 6.00,
-        order_subtotal: 5.40
+        items_total: Money.new(600),
+        order_subtotal: Money.new(540)
       )
       example.run
       page.set_rack_session(
@@ -33,14 +33,12 @@ feature 'Checkout delivery page' do
 
     context 'with addresses set' do
       background do
-        3.times { |n| create(:shipment, price: (n + 1) * 5.0) }
-        page.set_rack_session(
-          order: {
-            billing: attributes_for(:address),
-            items_total: 6.0,
-            subtotal: 5.4
-          }
-        )
+        3.times { |n| create(:shipment, price: (n + 1) * Money.new(500)) }
+        order = Ecomm::OrderForm.from_model(build(:order))
+        order.billing = Ecomm::AddressForm.from_model(build(:address))
+        order.items_total = Money.new(600)
+        order.subtotal = Money.new(540)
+        page.set_rack_session(order: order)
         visit ecomm.checkout_delivery_path
       end
 
