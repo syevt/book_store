@@ -464,6 +464,7 @@ DEPENDENCIES
   aasm
   activeadmin
   activeadmin_addons
+  activerecord-session_store
   bootstrap-sass
   byebug
   cancancan
