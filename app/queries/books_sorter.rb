@@ -1,8 +1,8 @@
 class BooksSorter < Rectify::Query
   SORTERS = {
     { 'sort_by' => 'created_at', 'order' => 'desc' } => 'created_at DESC',
-    { 'sort_by' => 'price', 'order' => 'asc' } => 'price ASC',
-    { 'sort_by' => 'price', 'order' => 'desc' } => 'price DESC',
+    { 'sort_by' => 'price', 'order' => 'asc' } => 'price_cents ASC',
+    { 'sort_by' => 'price', 'order' => 'desc' } => 'price_cents DESC',
     { 'sort_by' => 'title', 'order' => 'asc' } => 'title ASC',
     { 'sort_by' => 'title', 'order' => 'desc' } => 'title DESC'
   }.freeze
