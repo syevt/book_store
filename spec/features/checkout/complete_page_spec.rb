@@ -10,20 +10,23 @@ feature 'Checkout complete page' do
     given!(:user) { create(:user) }
     given!(:books) { create_list(:book_with_authors_and_materials, 3) }
     given!(:shipment) { create(:shipment) }
+    given(:subtotal) { Money.new(540) }
+    given (:order) do
+      order = Ecomm::OrderForm.from_model(build(:order))
+      order.billing = Ecomm::AddressForm.from_model(build(:address))
+      order.shipping = Ecomm::AddressForm.from_model(
+        build(:address, address_type: 'shipping')
+      )
+      order.shipment = Ecomm::ShipmentForm.from_model(shipment)
+      order.shipment_id = 1
+      order.card = Ecomm::CreditCardForm.from_model(build(:credit_card))
+      order.subtotal = subtotal
+      order
+    end
 
     background do
-      page.set_rack_session(
-        cart: { 1 => 1, 2 => 2, 3 => 3 },
-        order: {
-          billing: attributes_for(:address),
-          shipping: attributes_for(:address, address_type: 'shipping'),
-          shipment: attributes_for(:shipment),
-          shipment_id: 1,
-          card: attributes_for(:credit_card),
-          subtotal: 5.4
-        },
-        order_subtotal: 5.4
-      )
+      page.set_rack_session(cart: { 1 => 1, 2 => 2, 3 => 3 }, order: order,
+                            order_subtotal: subtotal)
       login_as(user, scope: :user)
       visit ecomm.checkout_confirm_path
       click_on(t('ecomm.checkout.confirm.place_order'))
