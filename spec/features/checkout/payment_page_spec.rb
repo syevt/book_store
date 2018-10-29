@@ -11,7 +11,8 @@ feature 'Checkout payment page' do
   context 'with logged in user' do
     around do |example|
       login_as(create(:user), scope: :user)
-      page.set_rack_session(order: {}, order_subtotal: 12.0)
+      page.set_rack_session(order: Ecomm::OrderForm.new,
+                            order_subtotal: Money.new(1200))
       example.run
       page.set_rack_session(order: nil)
     end
@@ -28,11 +29,14 @@ feature 'Checkout payment page' do
     end
 
     context 'with shipment set' do
+      given (:order) do
+        order = Ecomm::OrderForm.from_model(build(:order))
+        order.shipment = Ecomm::ShipmentForm.from_params(price: '5.0')
+        order
+      end
+
       background do
-        page.set_rack_session(
-          order: { shipment: attributes_for(:shipment, price: 5.0) },
-          order_subtotal: 20.0
-        )
+        page.set_rack_session(order: order, order_subtotal: Money.new(2000))
       end
 
       scenario 'has 3 as current checkout progress step' do
@@ -59,27 +63,22 @@ feature 'Checkout payment page' do
       context 'filling in credit card' do
         given(:credit_card_form) { NewCreditCardForm.new }
 
-        scenario 'with valid data' do
+        background { order.subtotal = Money.new(3000) }
+
+        scenario 'with valid data proceeds to confirm step' do
           create_list(:book_with_authors_and_materials, 3)
-          page.set_rack_session(
-            cart: { 1 => 1, 2 => 2, 3 => 3 },
-            order: {
-              billing: attributes_for(:address),
-              shipping: attributes_for(:address, address_type: 'shipping'),
-              shipment: attributes_for(:shipment),
-              subtotal: 30.0
-            }
+          order.billing = Ecomm::AddressForm.from_model(build(:address))
+          order.shipping = Ecomm::AddressForm.from_model(
+            build(:address, address_type: 'shipping')
           )
+          page.set_rack_session(cart: { 1 => 1, 2 => 2, 3 => 3 }, order: order)
           visit ecomm.checkout_payment_path
           credit_card_form.fill_in_with(attributes_for(:credit_card)).submit
           expect(page).to have_button(t('ecomm.checkout.confirm.place_order'))
         end
 
-        scenario 'with invalid data' do
-          page.set_rack_session(
-            order: { shipment: attributes_for(:shipment),
-                     subtotal: 50.0 }
-          )
+        scenario 'with invalid data shows errors' do
+          page.set_rack_session(order: order)
           visit ecomm.checkout_payment_path
           credit_card_form.fill_in_with(
             attributes_for(:credit_card, number: '1234567891011121')
