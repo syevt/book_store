@@ -1,4 +1,4 @@
-ActiveAdmin.register_page 'Dashboard' do
+ActiveAdmin.register_page 'dashboard' do
   menu(priority: 1, label: proc { t('active_admin.dashboard') })
 
   content(title: proc { t('active_admin.dashboard') }) do
