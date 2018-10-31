@@ -1,10 +1,14 @@
-ActiveAdmin.register Ecomm::Order, as: 'Order' do
+ActiveAdmin.register Ecomm::Order, as: 'order' do
+  tr_order = 'activerecord.models.order.'
+  tr_key = 'activerecord.attributes.order.state.'
+
+  menu(label: proc { t("#{tr_order}other") })
+
   actions(:index, :show)
 
   config.batch_actions = false
   config.filters = false
 
-  tr_key = 'activerecord.attributes.order.state.'
   scope(I18n.t('.active_admin.resource.index.all'), :all, default: true)
   scope(I18n.t("#{tr_key}in_progress")) do |scope|
     scope.where(state: %w(in_progress in_queue in_delivery))
@@ -12,7 +16,7 @@ ActiveAdmin.register Ecomm::Order, as: 'Order' do
   scope(I18n.t("#{tr_key}delivered"), :delivered)
   scope(I18n.t("#{tr_key}canceled"), :canceled)
 
-  index do
+  index title: proc { t("#{tr_order}other") } do
     column(t('.order.order')) do |order|
       link_to(order.decorate.number, admin_order_path(order))
     end
@@ -27,7 +31,7 @@ ActiveAdmin.register Ecomm::Order, as: 'Order' do
     column(t('.actions')) { |order| aasm_events_select(order) }
   end
 
-  show do
+  show title: proc { |order| t("#{tr_order}one") + " #{order.decorate.number}" } do
     attributes_table do
       row(t('.order.number')) { |order| order.decorate.number }
       row(t('.order.state')) do |order|
