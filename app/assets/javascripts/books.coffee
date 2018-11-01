@@ -1,7 +1,7 @@
 $ ->
   bseBooksModule = do ->
     init: ->
-      return if $('#books').length == 0 or $('#reviews').length == 0
+      return if !($('#books').length > 0 or $('#reviews').length > 0)
 
       $('.img-link').click (e) ->
         e.preventDefault()

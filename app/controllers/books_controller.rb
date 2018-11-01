@@ -4,8 +4,7 @@ class BooksController < ApplicationController
   def show
     set_back_to_results_path
     present(ReviewsPresenter.new)
-    @book = BookWithAssociated.new(params[:id], load_reviews: true)
-                              .first.decorate
+    @book = Books::GetBookWithAssociated.call(params[:id], load_reviews: true)
   end
 
   private

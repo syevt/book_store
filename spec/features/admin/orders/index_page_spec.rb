@@ -17,7 +17,7 @@ feature 'Admin Order index page', :include_aasm_helpers do
         visit admin_orders_path
         click_link(order.decorate.number)
         expect(page).to have_text(
-          "#{t('activerecord.models.order.one')} ##{order.id}"
+          "#{t('activerecord.models.order.one')} #{order.decorate.number}"
         )
       end
     end

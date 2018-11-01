@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @book = BookWithAssociated.new(params[:book_id]).first.decorate
+    @book = Books::GetBookWithAssociated.call(params[:book_id])
     @review = ReviewForm.new(book_id: @book.id, score: 0)
   end
 

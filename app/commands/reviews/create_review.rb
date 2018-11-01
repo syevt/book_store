@@ -4,7 +4,7 @@ module Reviews
       review = ReviewForm.from_params(params)
       if review.invalid?
         publish(:invalid, review,
-                BookWithAssociated.new(params[:book_id]).first.decorate)
+                Books::GetBookWithAssociated.call(params[:book_id]))
       else
         Review.create(review.attributes.merge(user: user))
         publish(:ok, I18n.t('reviews.form.success_message'))
