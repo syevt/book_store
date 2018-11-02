@@ -13,7 +13,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
 
   config.action_mailer.default_url_options = {
-    host: 'polar-crag-11320.herokuapp.com'
+    host: 'desolate-escarpment-27955.herokuapp.com'
   }
 
   # Code is not reloaded between requests.
