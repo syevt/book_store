@@ -17,8 +17,14 @@
 /yarn-error.log
 
 .byebug_history
+
+/public/uploads/*
+/**/*.swp
+
 coverage
 Session.vim
-config/application.yml
-public/uploads/
 tags
+tmux*
+.directory
+config/application.yml
+config/database.yml

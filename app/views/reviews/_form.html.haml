@@ -1,0 +1,13 @@
+.row
+  .col-xs-12.col-sm-8
+    %h3.in-gold-500.mb-25= t('.write_review')
+    %p.font-weight-light= t('.score')
+    - 5.times do |index|
+      %i.fa.fa-2x.fa-star.rate-star.review-star{id: "star-#{index + 1}",
+        class: ((@review.score < index + 1) ? 'rate-empty' : 'star-checked' )}
+    = simple_form_for(@review, url: book_reviews_path) do |f|
+      = f.input_field(:book_id, as: :hidden)
+      = f.input_field(:score, as: :hidden)
+      = f.input(:title)
+      = f.input(:body, as: :text, input_html: { rows: 5 })
+      = f.button(:submit, t('.post'), class: 'btn-default pull-right')
