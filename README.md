@@ -1,24 +1,6 @@
-# README
+A simple RoR test project featuring an average on-line book store.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Deployed at https://desolate-escarpment-27955.herokuapp.com
+- The admin panel is in the 'My account' menu, login: admin@bookstore.com, pass: 11111111 (i.e. 8 units).
+- Coupons to test: 111111, 222222, ... 999999. All have 10% discount.
+- Valid card number - 4149625323094647
