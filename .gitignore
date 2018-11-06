@@ -19,3 +19,6 @@
 .byebug_history
 coverage
 Session.vim
+config/application.yml
+public/uploads/
+tags
