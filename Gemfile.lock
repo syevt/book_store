@@ -1,7 +1,6 @@
 GIT
   remote: https://github.com/syevt/ecomm.git
-  revision: 32a55143861c6b6628cf8ee823ebe434e82033a0
-  branch: develop
+  revision: 12ea857a778b2c8125f4254b6ec9390deea5313b
   specs:
     ecomm (0.1.0)
       activerecord-session_store
@@ -213,7 +212,7 @@ GEM
     hashie (3.5.5)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
-    i18n-js (3.0.11)
+    i18n-js (3.1.0)
       i18n (>= 0.6.6, < 2)
     i18n_data (0.8.0)
     ice_nine (0.11.2)
