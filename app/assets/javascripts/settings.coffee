@@ -7,7 +7,9 @@ $ ->
         target = @getAttribute('data-target')
         targetInput = $("##{target}")[0]
         type = target.split('-')[0]
-        countryCode = $("option.#{type}")[@selectedIndex]
+        hasPrompt = !!$(@).children("option[value = '']").length
+        index = if hasPrompt then @selectedIndex - 1 else @selectedIndex
+        countryCode = $("option.#{type}")[index]
                         .getAttribute('data-country-code')
         targetInput.value = '+' + countryCode
 
