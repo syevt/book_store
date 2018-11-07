@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/syevt/ecomm.git
-  revision: 12ea857a778b2c8125f4254b6ec9390deea5313b
+  revision: 7980bc847f35baed6786aabf5e8e2b68adf0b7f2
   specs:
     ecomm (0.1.0)
       activerecord-session_store
